@@ -41,8 +41,14 @@ page {
 
 .vote-item-con-hd {
     padding: 18rpx 28rpx;
-    font-size: 28rpx;
-    color: #707070;
+    font-size: 24rpx;
+    color: #8a8a8a;
+}
+
+.vote-title {
+    margin-bottom: 12rpx;
+    font-size: 30rpx;
+    color: #515151;
 }
 
 .vote-item-data {
@@ -183,4 +189,16 @@ page {
     font-size: 24rpx;
     color: #707070;
     text-align: center;
+}
+
+.no-vote-tip button {
+    position: absolute;
+    top: 640rpx;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 412rpx;
+    height: 84rpx;
+    line-height: 84rpx;
+    background-color: #7087f4;
 }

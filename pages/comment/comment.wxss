@@ -3,14 +3,6 @@
     box-sizing: border-box;
 }
 
-.vote-add-title {
-    display: inline-block;
-    width: 100%;
-    padding: 40rpx 0 8rpx;
-    font-size: 40rpx;
-    font-weight: bold;
-}
-
 .vote-add p {
     display: block;
     margin-bottom: 40rpx;

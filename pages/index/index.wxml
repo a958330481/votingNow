@@ -7,8 +7,12 @@
     <view class="tab {{filterName==='mine'?'active':''}}" data-src="mine" bindtap="getVoteListByType"  hover-class="vote-item-data-active">我的</view>
  </view>
  <view class="votes-list">
+     <view class="no-vote-tip" wx:if="{{votes.length===0}}">
+        <view class="tips-icon tips-icon-res"></view>
+        <button type="primary" hover-class="none"  bindtap="targetToAdd">创建投票</button>
+    </view>
     <!--list begin-->
-    <view class="vote-item" wx:for="{{votes}}" wx:for-item="vote" wx:for-index="voteIndex">
+    <view class="vote-item" wx:if="{{votes.length>0}}" wx:for="{{votes}}" wx:for-item="vote" wx:for-index="voteIndex">
         <view class="vote-item-hd bottom-line">
             <image src="{{vote.data.user.avatar_url}}" mode="aspectFill"></image>
             <view class="vote-item-hd-info">
@@ -18,7 +22,8 @@
         </view>
         <view class="vote-item-con">
             <view class="vote-item-con-hd bottom-line">
-                {{vote.data.content}}
+                <view class="vote-title">{{vote.data.title}}</view>
+                <view wx:if="{{vote.data.content}}">{{vote.data.content}}</view>
             </view>
             <view wx:if="{{vote.result}}">
                 <!--当前用户已投票 begin-->
@@ -50,9 +55,10 @@
         </view>
     </view>
     <!--list end-->
+    
     <view class="no-more-tip" wx:if="{{bottomLineState}}">这是底部，已无更多内容</view>
  </view>
- <view class="vote-add-btn" hover-class="vote-item-data-active" bindtap="targetToAdd">
+ <view wx:if="{{votes.length>0}}" class="vote-add-btn" hover-class="vote-item-data-active" bindtap="targetToAdd">
     <i class="fa fa-plus-circle"></i>创建投票
  </view>
 </view>

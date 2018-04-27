@@ -1,6 +1,5 @@
 <!--comment.wxml-->
 <view class="vote-add" scroll-y="true">
-  <text class="vote-add-title center">创建投票</text>
   <view class="vote-add-item clearfix">
     <label class="label-for-input">投票标题</label>
     <input class="bottom-line" type="text" placeholder="请输入投票标题,至少三个字" bindinput="bindTitleInput"  confirm-type="done" value="{{newVoteTitle}}"/>
@@ -28,6 +27,25 @@
       <image wx:if="{{voteImgs.length < 2}}" src="../../images/uploadImg.png"  catchtap="uploadImg"></image>
     </view>
   </view>
+  <!--
+  <view class="vote-add-item clearfix">
+    <label>添加选项</label>
+    <view class="fl vote-add-item-data">
+        <view>
+          <view class="vote-option-add">
+            <i class="fa fa-minus-circle"></i>
+            <input class="bottom-line" placeholder="选项" auto-focus/>
+          </view>
+        </view>
+        <view>
+          <i class="fa fa-plus-circle"></i>
+        </view>
+    </view>
+  </view>
+  -->
+
+
+
   <view class="vote-add-item clearfix">
     <label>设置选项</label>
     <view class="vote-options fl vote-add-item-data">

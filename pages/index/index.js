@@ -12,10 +12,21 @@ Page({
         votedColor: ['#9dc8c8', '#58c9b9', '#519d9e', '#d1b6e1'],
         filterName: 'all'
     },
-    onLoad: function() {
-        var self = this;
+    onLoad: function(option) {
+        let self = this;
+        let funType;
         //首页数据初始化
-        self.getVoteList('', 1, 'all');
+        if (option.funType) {
+            funType = option.funType
+            self.setData({
+                filterName: funType
+            })
+        } else {
+            funType = self.data.filterName
+        }
+        console.log(option);
+        authorization = wx.getStorageSync('authorization');
+        self.getVoteList('', 1, funType);
     },
     onPullDownRefresh: function() {
         let self = this;
@@ -70,18 +81,16 @@ Page({
         })
     },
     onShareAppMessage: function(res) {
+        let self = this;
         if (res.from === 'button') {
             // 来自页面内转发按钮
-            console.log(res.target)
+            console.log(res)
         }
         return {
             title: '朋友等你投一票！',
-            path: '/pages/index/index',
+            path: '/pages/index/index?funType=' + self.data.filterName,
             success: function(res) {
                 // 转发成功
-            },
-            fail: function(res) {
-                // 转发失败
             }
         }
     },
@@ -92,7 +101,7 @@ Page({
             wx.showLoading({
                 title: '加载中',
             })
-        }, 200);
+        }, 300);
         authorization = wx.getStorageSync('authorization');
         wx.request({
             url: util.baseUrl + '/api/votes',

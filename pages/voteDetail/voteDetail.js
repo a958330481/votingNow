@@ -2,7 +2,8 @@ const util = require('../../utils/util.js')
 Page({
     data: {
         voteDetails: '',
-        voteId: ''
+        voteId: '',
+        voteTitle: ''
     },
     onLoad: function(option) {
         let self = this;
@@ -29,10 +30,13 @@ Page({
             success: function(res) {
                 if (res.statusCode === 200) {
                     self.setData({
-                        voteDetails: res.data.data
+                        voteDetails: res.data.data,
+                        voteTitle: res.data.data.title
                     })
                     wx.stopPullDownRefresh()
                     wx.hideNavigationBarLoading()
+                } else if (res.statusCode === 401) {
+                    //todo
                 }
             },
             fail: function(res) {
