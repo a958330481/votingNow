@@ -1,0 +1,83 @@
+<!--comment.wxml-->
+<view class="vote-add" scroll-y="true">
+  <text class="vote-add-title center">创建投票</text>
+  <view class="vote-add-item clearfix">
+    <label class="label-for-input">投票标题</label>
+    <input class="bottom-line" type="text" placeholder="请输入投票标题,至少三个字" bindinput="bindTitleInput"  confirm-type="done" value="{{newVoteTitle}}"/>
+  </view>
+  <view class="vote-add-item clearfix">
+    <label class="label-for-input">投票类型</label>
+    <radio-group class="vote-radio-group vote-add-item-data" bindchange="radioChange">
+      <label wx:for="{{voteTypes}}">
+        <radio class="vote-radio" value="{{item.name}}" checked="{{item.checked}}" 	color="#7087f4"/>{{item.value}}
+      </label>
+    </radio-group>
+  </view>
+  <view class="vote-add-item clearfix">
+    <label>投票描述</label>
+    <textarea wx:if="{{!desTextareaState}}" class="fl vote-add-item-data" bindinput="bindDesTextAreaInput" maxlength="-1" auto-height placeholder="请输入描述内容（选填）" value="{{desTextareaData}}" />
+    <view class="fl peso-des-textarea" wx:elif="{{desTextareaState}}">{{desTextareaData}}</view>
+  </view>
+  <view class="vote-add-item vote-add-item-imgs clearfix">
+    <label>投票配图<text>(最多两张)</text></label>
+    <view class="vote-add-item-imgs-box">
+      <view wx:for="{{voteImgs}}">          
+        <image wx:if="{{item}}" data-src="{{item}}" src="{{item}}" mode="aspectFill" bindtap="bindPreviewImage"></image>
+        <i class="fa fa-remove" data-index="{{index}}" bindtap = "delImage"></i>
+      </view>
+      <image wx:if="{{voteImgs.length < 2}}" src="../../images/uploadImg.png"  catchtap="uploadImg"></image>
+    </view>
+  </view>
+  <view class="vote-add-item clearfix">
+    <label>设置选项</label>
+    <view class="vote-options fl vote-add-item-data">
+        <view wx:for="{{newVotes}}" class="vote-option-container bottom-line" hover-class="vote-option-hover-class" data-index="{{index}}"   bindlongpress="confirmDelItem">
+          <view class="vote-option">
+            <text class="vote-option-index">{{index+1}}</text>
+            <text class="vote-option-content">{{item.title}}</text>
+          </view>
+          <!--
+          <image wx:if="{{item.image_url}}" data-src="{{item.image_url}}" src="{{item.image_url}}" mode="aspectFill" bindtap="bindPreviewImage"></image>
+          -->
+        </view>
+        <button type="defalut" bindtap="addNewVote"><i class="fa fa-plus"></i>添加投票选项</button>
+        <view class="vote-item-tip"><icon type="info" size="16" color="#7087f4"/>长按已添加选项可进行删除操作</view>
+    </view>
+  </view>
+  <view class="vote-add-item">
+    <button class="publish-btn" type="primary" bindtap="publishNewVote">发布</button>
+  </view>
+  <!--弹窗 begin-->
+  <view class="vote-item-add-mask"  wx:if="{{addNewVoteState}}">
+    <view class="vote-item-add clearfix {{textareaFocusFlag ?'vote-item-add-active':''}}">
+      <textarea class="vote-add-item-data" bindfocus="bindTextAreaFocus" bindblur="bindTextAreablur"  bindinput="bindTextAreaInput"  auto-height maxlength="30" placeholder="请填写选项内容,内容不要超过30字" value="{{newVoteContent}}" />
+      <view class="clearfix">
+        <text class="{{newVoteWordsState?'color-warn':''}}">{{newVoteWords}}/30</text>
+      </view>
+      <button class="confirm-add-btn" type="primary" bindtap="confirmAddNewVote">确认添加</button>
+      <i class="fa fa-times-circle"  bindtap="closeMask"></i>
+    </view>
+  </view>
+  <!--弹窗 end-->
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+

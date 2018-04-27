@@ -1,0 +1,261 @@
+.vote-add {
+    font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+.vote-add-title {
+    display: inline-block;
+    width: 100%;
+    padding: 40rpx 0 8rpx;
+    font-size: 40rpx;
+    font-weight: bold;
+}
+
+.vote-add p {
+    display: block;
+    margin-bottom: 40rpx;
+}
+
+.vote-add p label {
+    width: 20%;
+    padding-right: 4%;
+    text-align: right;
+}
+
+.vote-add-item {
+    padding: 32rpx 28rpx;
+    font-size: 28rpx;
+}
+
+.vote-add-item label {
+    width: 20%;
+    float: left;
+    color: #666666;
+}
+
+.vote-add-item input,
+.vote-add-item radio-group {
+    height: 60rpx;
+    line-height: 60rpx;
+}
+
+.vote-add-item .label-for-input {
+    display: inline-block;
+    height: 60rpx;
+    line-height: 60rpx;
+}
+
+.vote-add-item radio-group label {
+    width: 180rpx;
+    color: #333333;
+}
+
+.vote-add-item .vote-add-item-data {
+    width: 80%;
+    box-sizing: border-box;
+}
+
+.vote-add-item textarea {
+    min-height: 240rpx;
+    padding: 12rpx;
+    border: 2rpx solid #e1e8f6;
+    border-radius: 8rpx;
+}
+
+.peso-des-textarea {
+    width: 80%;
+    min-height: 240rpx;
+    padding: 12rpx;
+    border: 2rpx solid #e1e8f6;
+    border-radius: 8rpx;
+    word-break: break-all;
+    box-sizing: border-box;
+}
+
+.vote-add-item .vote-option image {
+    max-width: 100%;
+    padding: 36rpx 0;
+    -webkit-border-radius: 8rpx;
+    border-radius: 8rpx;
+}
+
+.vote-add-item .vote-option text {
+    display: inline-block;
+    padding-bottom: 24rpx;
+    font-size: 32rpx;
+    line-height: 32rpx;
+    word-break: break-all;
+    vertical-align: text-bottom;
+}
+
+.vote-item-add-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .4);
+    z-index: 9999999;
+}
+
+.vote-item-add {
+    position: relative;
+    width: 84%;
+    height: 400rpx;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+}
+
+.vote-item-add-active {
+    top: 30%;
+}
+
+.vote-item-add .vote-add-item-data {
+    width: 100%;
+}
+
+.vote-item-add textarea {
+    position: relative;
+    min-height: 150rpx;
+    padding: 20rpx;
+    box-sizing: border-box;
+    font-size: 28rpx;
+    z-index: 99999999;
+    border-bottom: 1rpx solid #e1e8f6;
+}
+
+.vote-item-add text {
+    display: inline-block;
+    margin: 12rpx;
+    font-size: 32rpx;
+    color: #7087f4;
+}
+
+.vote-item-add .fa-image {
+    margin: 12rpx;
+    font-size: 60rpx;
+    color: #999999;
+}
+
+.vote-item-add button {
+    width: 80%;
+    margin-top: 40rpx;
+}
+
+.vote-item-add .fa-times-circle {
+    position: absolute;
+    top: -66rpx;
+    right: 0rpx;
+    font-size: 60rpx;
+    color: #ffffff;
+}
+
+.vote-option-container {
+    margin-bottom: 36rpx;
+}
+
+.vote-option {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.vote-option-index {
+    position: relative;
+    display: inline-block;
+    width: 40rpx;
+    font-size: 40rpx !important;
+    font-style: italic;
+    color: #7087f4;
+    word-break: break-normal !important;
+}
+
+.vote-option-index::after {
+    content: ':';
+    position: absolute;
+    height: 40px;
+    top: 0;
+    right: 6rpx;
+}
+
+.vote-option-content {
+    margin-top: 2rpx;
+    color: #707070;
+}
+
+.vote-add-item-data .fa-plus {
+    margin-right: 8rpx;
+    color: #515151;
+}
+
+.vote-item-add image {
+    width: 60rpx;
+    height: 60rpx;
+    margin: 12rpx;
+    border-radius: 60rpx;
+}
+
+.vote-add-item-data view image {
+    max-width: 100%;
+    margin-bottom: 24rpx;
+    -webkit-border-radius: 12rpx;
+    border-radius: 12rpx;
+}
+
+.vote-option-hover-class {
+    background-color: #e1e8f6;
+    -webkit-transition: all ease .3s;
+    transition: all ease .3s;
+}
+
+.vote-add-item .publish-btn,
+.confirm-add-btn {
+    background-color: #7087f4 !important;
+}
+
+.vote-item-tip {
+    margin-top: 16rpx;
+    color: #707070;
+}
+
+.vote-item-tip icon {
+    margin-right: 8rpx;
+    vertical-align: -6rpx;
+}
+
+.vote-add-item-data button {
+    color: #707070;
+}
+
+.vote-add-item-imgs label text {
+    display: inline-block;
+    font-size: 22rpx;
+    color: #707070;
+}
+
+.vote-add-item-imgs image {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 8rpx;
+}
+
+.vote-add-item-imgs-box {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.vote-add-item-imgs-box view {
+    position: relative;
+    margin-right: 36rpx;
+}
+
+.vote-add-item-imgs-box view .fa-remove {
+    position: absolute;
+    top: -12rpx;
+    right: -12rpx;
+    font-size: 36rpx;
+    color: #d81e06;
+}

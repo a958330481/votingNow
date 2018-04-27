@@ -1,0 +1,75 @@
+@import "./lib/fontAwesome/wxss/font-awesome.min.wxss";
+
+/**app.wxss**/
+
+.center {
+    text-align: center;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.clearfix:after {
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+
+
+/*bottom-line*/
+
+.bottom-line,
+.top-line {
+    position: relative;
+}
+
+.bottom-line:after,
+.top-line:before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 2rpx;
+    background-color: #f1f8f6;
+}
+
+.top-line::before {
+    position: absolute;
+    top: 0;
+}
+
+.color-warn {
+    color: #e64340 !important;
+}
+
+.color-success {
+    color: #1aad19 !important;
+}
+
+.color-2c2c2c {
+    color: #2c2c2c;
+}
+
+.color-515151 {
+    color: #515151;
+}
+
+.color-707070 {
+    color: #707070;
+}
+
+.color-8a8a8a {
+    color: #8a8a8a;
+}
+
+.color-bfbfbf {
+    color: #bfbfbf;
+}
