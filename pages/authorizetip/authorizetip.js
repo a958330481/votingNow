@@ -1,13 +1,6 @@
-//logs.js
 const util = require('../../utils/util.js')
 const app = getApp()
 Page({
-    data: {
-        logs: []
-    },
-    onLoad: function() {
-
-    },
     //跳转设置页面授权
     openSetting: function() {
         var that = this
