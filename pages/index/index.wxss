@@ -49,7 +49,7 @@ page {
 }
 
 .vote-item-hd-op-hover .fa-circle {
-    color: red;
+    color: #7087f4;
 }
 
 .vote-item-con {

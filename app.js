@@ -20,7 +20,6 @@ App({
                     self.userAuthCb();
                 } else {
                     //未授权
-                    console.log(666666666666666666666)
                     wx.authorize({
                         scope: 'scope.userInfo',
                         success() {
@@ -34,6 +33,9 @@ App({
     },
     userAuthCb: function() {
         var that = this
+        wx.showLoading({
+            title: '加载中',
+        })
         wx.getUserInfo({
             success: function(res) {
                 that.globalData.userInfo = res.userInfo;
@@ -58,13 +60,15 @@ App({
                                     success: function(res) {
                                         console.log(res.data)
                                         let authorizationValue = res.data.access_token;
+                                        let currentPagesLen = getCurrentPages().length;
                                         if (authorizationValue) {
-                                            wx.setStorage({
-                                                key: 'authorization',
-                                                data: "Bearer " + authorizationValue
-                                            })
-                                            that.globalData.userAuthorization = "Bearer " + authorizationValue
-                                            console.log(that.globalData.userAuthorization)
+                                            wx.setStorageSync('authorization', "Bearer " + authorizationValue);
+                                            that.globalData.userAuthorization = "Bearer " + authorizationValue;
+                                            //判断是否有页面优先生成，如果生成则重新加载一次
+                                            if (currentPagesLen !== 0) {
+                                                wx.hideLoading();
+                                                getCurrentPages()[currentPagesLen - 1].onLoad()
+                                            }
                                         } else {
                                             console.log('身份验证失败')
                                         }

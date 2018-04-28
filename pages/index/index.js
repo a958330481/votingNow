@@ -17,15 +17,16 @@ Page({
         let self = this;
         let funType;
         //首页数据初始化
-        if (option.funType) {
+        if (option) {
             funType = option.funType
-            self.setData({
-                filterName: funType
-            })
+            if (funType) {
+                self.setData({
+                    filterName: funType
+                })
+            }
         } else {
             funType = self.data.filterName
         }
-        console.log(option);
         authorization = wx.getStorageSync('authorization');
         self.getVoteList('', 1, funType);
     },

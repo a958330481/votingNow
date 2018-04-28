@@ -68,9 +68,9 @@
   <!--弹窗 begin-->
   <view class="vote-item-add-mask"  wx:if="{{addNewVoteState}}">
     <view class="vote-item-add clearfix {{textareaFocusFlag ?'vote-item-add-active':''}}">
-      <textarea class="vote-add-item-data" bindfocus="bindTextAreaFocus" bindblur="bindTextAreablur"  bindinput="bindTextAreaInput"  auto-height maxlength="30" placeholder="请填写选项内容,内容不要超过30字" value="{{newVoteContent}}" />
+      <textarea class="vote-add-item-data" bindfocus="bindTextAreaFocus" bindblur="bindTextAreablur"  bindinput="bindTextAreaInput"  auto-height maxlength="20" placeholder="请填写选项内容,内容不要超过20字" value="{{newVoteContent}}" />
       <view class="clearfix">
-        <text class="{{newVoteWordsState?'color-warn':''}}">{{newVoteWords}}/30</text>
+        <text class="{{newVoteWordsState?'color-warn':''}}">{{newVoteWords}}/20</text>
       </view>
       <button class="confirm-add-btn" type="primary" bindtap="confirmAddNewVote">确认添加</button>
       <i class="fa fa-times-circle"  bindtap="closeMask"></i>
