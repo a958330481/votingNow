@@ -9,6 +9,7 @@ page {
 }
 
 .vote-item-hd {
+    position: relative;
     display: -webkit-flex;
     display: flex;
     align-items: center;
@@ -23,12 +24,32 @@ page {
 .vote-item-hd image {
     width: 64rpx;
     height: 64rpx;
-    margin: 0 16rpx;
+    margin: 0 16rpx 0 28rpx;
     border-radius: 64rpx;
 }
 
 .vote-item-hd-info {
     color: #707070;
+}
+
+.vote-item-hd-op {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 28rpx;
+    bottom: 0;
+}
+
+.vote-item-hd-op .fa-circle {
+    margin-left: 6rpx;
+    font-size: 10rpx;
+    color: #8a8a8a;
+}
+
+.vote-item-hd-op-hover .fa-circle {
+    color: red;
 }
 
 .vote-item-con {

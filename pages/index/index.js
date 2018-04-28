@@ -2,7 +2,7 @@
 const util = require('../../utils/util.js')
 const app = getApp()
     //用户授权方法调用：app.getUserInfo()
-var authorization = wx.getStorageSync('authorization');
+let authorization = wx.getStorageSync('authorization');
 Page({
     data: {
         votes: '',
@@ -10,7 +10,8 @@ Page({
         currentPage: 0,
         bottomLineState: false,
         votedColor: ['#9dc8c8', '#58c9b9', '#519d9e', '#d1b6e1'],
-        filterName: 'all'
+        filterName: 'all',
+        delOpState: false
     },
     onLoad: function(option) {
         let self = this;
@@ -147,7 +148,7 @@ Page({
                         wx.hideNavigationBarLoading()
                     }
                 } else if (res.statusCode === 401) {
-                    //app.getUserInfo()
+                    //todo
                 }
             },
             fail: function() {
@@ -207,5 +208,51 @@ Page({
             })
             self.getVoteList('', 1, curName);
         }
+    },
+    voteOP: function(e) {
+        let voteIndex = e.currentTarget.dataset.index;
+        let voteId = e.currentTarget.dataset.voteid;
+        let authorization = wx.getStorageSync('authorization');
+        let self = this;
+        let delData;
+        self.setData({
+            //操作按钮变为选中状态；让用户区分自己所选那条
+            delOpState: true
+        })
+        wx.showActionSheet({
+            itemList: ['删除该项投票内容'],
+            itemColor: '#d81e06',
+            success: function(res) {
+                if (res.tapIndex === 0) {
+                    wx.request({
+                        url: util.baseUrl + '/api/votes/' + voteId,
+                        method: 'DELETE',
+                        header: {
+                            'accept': 'application/json',
+                            Authorization: authorization
+                        },
+                        success: function(res) {
+                            if (res.statusCode === 200) {
+                                self.data.votes.splice(voteIndex, 1)
+                                self.setData({
+                                    votes: self.data.votes
+                                })
+                                wx.showToast({
+                                    title: '删除成功',
+                                    icon: 'success',
+                                    duration: 1500,
+                                    mask: true
+                                })
+                            }
+                        }
+                    })
+                }
+            },
+            fail: function(res) {
+                self.setData({
+                    delOpState: false
+                })
+            }
+        })
     }
 })
