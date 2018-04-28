@@ -1,0 +1,29 @@
+page {
+    background-color: #e1e8f6;
+}
+
+.no-vote-tip {
+    margin-top: 80rpx;
+}
+
+.no-vote-tip button {
+    position: absolute;
+    top: 640rpx;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 412rpx;
+    height: 84rpx;
+    line-height: 84rpx;
+    background-color: #7087f4;
+}
+
+.no-vote-tip text {
+    position: absolute;
+    top: 520rpx;
+    right: 0;
+    left: 0;
+    font-size: 30rpx;
+    color: #707070;
+    text-align: center;
+}

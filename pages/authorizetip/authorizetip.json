@@ -1,6 +1,6 @@
 {
-    "navigationBarTitleText": "晒一晒",
-    "navigationBarBackgroundColor": "#d4237a",
+    "navigationBarTitleText": "投一票",
+    "navigationBarBackgroundColor": "#7087f4",
     "navigationBarTextStyle": "white",
     "backgroundTextStyle": "light",
     "enablePullDownRefresh": false

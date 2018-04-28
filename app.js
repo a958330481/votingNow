@@ -25,6 +25,35 @@ App({
                         success() {
                             // 用户已经同意小程序获取用户信息
                             self.userAuthCb();
+                        },
+                        fail() {
+                            //拒绝授权
+                            wx.redirectTo({
+                                    url: '../authorizetip/authorizetip',
+                                })
+                                /*
+                                wx.showModal({
+                                    title: '温馨提示',
+                                    content: '为了更好的体验完整功能，请授权我们获取您的用户信息',
+                                    confirmText: '再次授权',
+                                    cancelText: '去意已决',
+                                    success: function(res) {
+                                        if (res.confirm) {
+                                            console.log('用户点击确定')
+                                            wx.authorize({
+                                                scope: 'scope.userInfo',
+                                                success() {
+                                                    // 用户已经同意小程序获取用户信息
+                                                    self.userAuthCb();
+                                                }
+                                            })
+                                        } else if (res.cancel) {
+                                            wx.navigateBack({
+                                                //delta: -1
+                                            })
+                                        }
+                                    }
+                                })*/
                         }
                     })
                 }

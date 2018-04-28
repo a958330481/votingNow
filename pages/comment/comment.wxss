@@ -1,4 +1,5 @@
 .vote-add {
+    padding-top: 28rpx;
     font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
     box-sizing: border-box;
 }
@@ -22,7 +23,7 @@
 .vote-add-item label {
     width: 20%;
     float: left;
-    color: #666666;
+    color: #515151;
 }
 
 .vote-add-item input,
@@ -93,7 +94,7 @@
 .vote-item-add {
     position: relative;
     width: 84%;
-    height: 400rpx;
+    height: 380rpx;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -135,7 +136,7 @@
 
 .vote-item-add button {
     width: 80%;
-    margin-top: 40rpx;
+    margin-top: 30rpx;
 }
 
 .vote-item-add .fa-times-circle {

@@ -1,0 +1,5 @@
+<view class="no-vote-tip">
+    <view class="tips-icon tips-icon-res"></view>
+    <text>需要您的授权才能使用哦~</text>
+    <button type="primary" hover-class="none" bindtap="openSetting">立即授权</button>
+</view>

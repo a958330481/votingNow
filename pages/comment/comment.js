@@ -29,7 +29,6 @@ Page({
         self.setData({
             voteTypeChoosed: choosedValue
         })
-        console.log('radio发生change事件，携带value值为：', self.data.voteTypeChoosed)
     },
     bindTitleInput: function(e) {
         let self = this;
@@ -37,23 +36,20 @@ Page({
             newVoteTitle: e.detail.value,
             voteTitleLen: e.detail.cursor
         })
-        console.log(e.detail.cursor)
     },
     bindDesTextAreaInput: function(e) {
         var self = this;
         self.setData({
             desTextareaData: e.detail.value
         })
-        console.log(e.detail.cursor)
     },
     bindTextAreaInput: function(e) {
         var self = this;
-        //console.log(e.detail.value + ":" + e.detail.cursor)
         self.setData({
             newVoteWords: e.detail.cursor,
             newVoteContent: e.detail.value
         })
-        if (self.data.newVoteWords === 30) {
+        if (self.data.newVoteWords === 20) {
             self.setData({
                 newVoteWordsState: true
             })

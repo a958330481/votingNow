@@ -1,10 +1,10 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/authorizetip/authorizetip",
         "pages/comment/comment",
         "pages/voteDetail/voteDetail",
-        "pages/vote/vote",
-        "pages/share/share"
+        "pages/vote/vote"
     ],
     "window": {
         "backgroundTextStyle": "light",

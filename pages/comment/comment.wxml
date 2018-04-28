@@ -7,7 +7,7 @@
   <view class="vote-add-item clearfix">
     <label class="label-for-input">投票类型</label>
     <radio-group class="vote-radio-group vote-add-item-data" bindchange="radioChange">
-      <label wx:for="{{voteTypes}}">
+      <label wx:for="{{voteTypes}}" wx:key="{{index}}">
         <radio class="vote-radio" value="{{item.name}}" checked="{{item.checked}}" 	color="#7087f4"/>{{item.value}}
       </label>
     </radio-group>
@@ -17,6 +17,7 @@
     <textarea wx:if="{{!desTextareaState}}" class="fl vote-add-item-data" bindinput="bindDesTextAreaInput" maxlength="-1" auto-height placeholder="请输入描述内容（选填）" value="{{desTextareaData}}" />
     <view class="fl peso-des-textarea" wx:elif="{{desTextareaState}}">{{desTextareaData}}</view>
   </view>
+    <!--
   <view class="vote-add-item vote-add-item-imgs clearfix">
     <label>投票配图<text>(最多两张)</text></label>
     <view class="vote-add-item-imgs-box">
@@ -27,7 +28,6 @@
       <image wx:if="{{voteImgs.length < 2}}" src="../../images/uploadImg.png"  catchtap="uploadImg"></image>
     </view>
   </view>
-  <!--
   <view class="vote-add-item clearfix">
     <label>添加选项</label>
     <view class="fl vote-add-item-data">
@@ -49,7 +49,7 @@
   <view class="vote-add-item clearfix">
     <label>设置选项</label>
     <view class="vote-options fl vote-add-item-data">
-        <view wx:for="{{newVotes}}" class="vote-option-container bottom-line" hover-class="vote-option-hover-class" data-index="{{index}}"   bindlongpress="confirmDelItem">
+        <view wx:for="{{newVotes}}" wx:key="{{index}}" class="vote-option-container bottom-line" hover-class="vote-option-hover-class" data-index="{{index}}"   bindlongpress="confirmDelItem">
           <view class="vote-option">
             <text class="vote-option-index">{{index+1}}</text>
             <text class="vote-option-content">{{item.title}}</text>
