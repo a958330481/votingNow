@@ -80,6 +80,9 @@ page {
     box-sizing: border-box;
     text-align: center;
     color: #7087f4;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     transition: all ease-in-out .3s;
 }
 

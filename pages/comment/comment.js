@@ -17,6 +17,7 @@ Page({
         userAuthorization: '',
         voteTitleLen: 0,
         voteDesLen: 0,
+        desTextareaDataLen: 0,
         voteImgs: [],
         voteTypes: [
             { name: 'F', value: '公开', checked: true },
@@ -26,9 +27,30 @@ Page({
     radioChange: function(e) {
         let self = this;
         let choosedValue = e.detail.value;
-        self.setData({
-            voteTypeChoosed: choosedValue
-        })
+        if (e.detail.value === "T") {
+            wx.showModal({
+                content: '私密投票只有自己和被分享的朋友才能看到哦~',
+                success: function(res) {
+                    if (res.confirm) {
+                        self.setData({
+                            voteTypeChoosed: choosedValue
+                        })
+                        return;
+                    } else if (res.cancel) {
+                        self.setData({
+                            voteTypes: [
+                                { name: 'F', value: '公开', checked: true },
+                                { name: 'T', value: '私密' }
+                            ]
+                        })
+                    }
+                }
+            })
+        } else {
+            self.setData({
+                voteTypeChoosed: choosedValue
+            })
+        }
     },
     bindTitleInput: function(e) {
         let self = this;
@@ -38,9 +60,12 @@ Page({
         })
     },
     bindDesTextAreaInput: function(e) {
-        var self = this;
+        let self = this;
+        let desTextLen = e.detail.cursor;
+        console.log(e.detail.cursor)
         self.setData({
-            desTextareaData: e.detail.value
+            desTextareaData: e.detail.value,
+            desTextareaDataLen: e.detail.cursor
         })
     },
     bindTextAreaInput: function(e) {
@@ -49,7 +74,7 @@ Page({
             newVoteWords: e.detail.cursor,
             newVoteContent: e.detail.value
         })
-        if (self.data.newVoteWords === 20) {
+        if (self.data.newVoteWords === 30) {
             self.setData({
                 newVoteWordsState: true
             })
@@ -232,10 +257,17 @@ Page({
                 duration: 1500
             })
             return;
-        }
-        if (newVotes.length === 0) {
+        } else if (self.data.voteTitleLen < 3) {
             wx.showToast({
-                title: '请添加【投票选项】后再提交',
+                title: '【投票标题】至少三个字',
+                icon: 'none',
+                duration: 1500
+            })
+            return;
+        }
+        if (newVotes.length < 2) {
+            wx.showToast({
+                title: '【投票选项】至少两项！',
                 icon: 'none',
                 duration: 1500
             })

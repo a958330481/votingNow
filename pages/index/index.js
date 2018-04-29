@@ -148,8 +148,6 @@ Page({
                         wx.stopPullDownRefresh()
                         wx.hideNavigationBarLoading()
                     }
-                } else if (res.statusCode === 401) {
-                    //todo
                 }
             },
             fail: function() {

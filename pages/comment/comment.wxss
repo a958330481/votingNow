@@ -74,7 +74,6 @@
 
 .vote-add-item .vote-option text {
     display: inline-block;
-    padding-bottom: 24rpx;
     font-size: 32rpx;
     line-height: 32rpx;
     word-break: break-all;
@@ -148,30 +147,24 @@
 }
 
 .vote-option-container {
-    margin-bottom: 36rpx;
+    margin-bottom: 16px;
 }
 
 .vote-option {
-    display: -webkit-flex;
-    display: flex;
-}
-
-.vote-option-index {
     position: relative;
-    display: inline-block;
-    width: 40rpx;
-    font-size: 40rpx !important;
-    font-style: italic;
-    color: #7087f4;
-    word-break: break-normal !important;
+    padding: 20rpx 0 20rpx 50rpx;
+    border-radius: 6rpx;
 }
 
-.vote-option-index::after {
-    content: ':';
+.vote-option .fa-minus-circle {
     position: absolute;
-    height: 40px;
     top: 0;
-    right: 6rpx;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    height: 40rpx;
+    font-size: 40rpx;
+    color: #ec7357;
 }
 
 .vote-option-content {
@@ -200,6 +193,7 @@
 
 .vote-option-hover-class {
     background-color: #e1e8f6;
+    border-radius: 6rpx;
     -webkit-transition: all ease .3s;
     transition: all ease .3s;
 }
@@ -210,16 +204,23 @@
 }
 
 .vote-item-tip {
+    display: -webkit-flex;
+    display: flex;
     margin-top: 16rpx;
     color: #707070;
 }
 
 .vote-item-tip icon {
+    margin-top: 3rpx;
     margin-right: 8rpx;
-    vertical-align: -6rpx;
 }
 
-.vote-add-item-data button {
+.vote-item-tip text {
+    display: inline-block;
+}
+
+.vote-add-item-data button,
+.vote-add-item-data .fa-plus {
     color: #707070;
 }
 
@@ -251,4 +252,9 @@
     right: -12rpx;
     font-size: 36rpx;
     color: #d81e06;
+}
+
+.des-textarea-tip {
+    margin-top: 16rpx;
+    color: #7087f4;
 }
