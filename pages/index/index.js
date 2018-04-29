@@ -236,7 +236,8 @@ Page({
                             if (res.statusCode === 200) {
                                 self.data.votes.splice(voteIndex, 1)
                                 self.setData({
-                                    votes: self.data.votes
+                                    votes: self.data.votes,
+                                    delOpState: false
                                 })
                                 wx.showToast({
                                     title: '删除成功',
