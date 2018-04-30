@@ -14,39 +14,20 @@
   </view>
   <view class="vote-add-item clearfix">
     <label>投票描述</label>
-    <textarea wx:if="{{!desTextareaState}}" class="fl vote-add-item-data" bindinput="bindDesTextAreaInput" maxlength="140" auto-height placeholder="补充描述（选填，不超过140字）" value="{{desTextareaData}}" />
+    <textarea wx:if="{{!desTextareaState}}" class="fl vote-add-item-data" bindinput="bindDesTextAreaInput" maxlength="120" auto-height placeholder="补充描述（选填，不超过120字）" value="{{desTextareaData}}" />
     <view class="fl peso-des-textarea" wx:elif="{{desTextareaState}}">{{desTextareaData}}</view>
-    <view wx:if="{{desTextareaDataLen>0}}" class="fr vote-add-item-data des-textarea-tip"><text class="{{desTextareaDataLen===140?'color-warn':''}}">{{desTextareaDataLen}}/140</text></view>
+    <view wx:if="{{desTextareaDataLen>0}}" class="fr vote-add-item-data des-textarea-tip"><text class="{{desTextareaDataLen===120?'color-warn':''}}">{{desTextareaDataLen}}/120</text></view>
   </view>
-    <!--
   <view class="vote-add-item vote-add-item-imgs clearfix">
-    <label>投票配图<text>(最多两张)</text></label>
+    <label>投票配图<text>(最多4张)</text></label>
     <view class="vote-add-item-imgs-box">
-      <view wx:for="{{voteImgs}}">          
+      <view wx:for="{{voteImgs}}" wx:key="{{index}}">          
         <image wx:if="{{item}}" data-src="{{item}}" src="{{item}}" mode="aspectFill" bindtap="bindPreviewImage"></image>
-        <i class="fa fa-remove" data-index="{{index}}" bindtap = "delImage"></i>
+        <i class="fa fa-remove" data-path="{{voteImgPaths[index].path}}" data-index="{{index}}" bindtap = "delImage"></i>
       </view>
-      <image wx:if="{{voteImgs.length < 2}}" src="../../images/uploadImg.png"  catchtap="uploadImg"></image>
+      <image wx:if="{{voteImgs.length < 5}}" src="../../images/uploadImg.png"  catchtap="uploadImg"></image>
     </view>
   </view>
-  <view class="vote-add-item clearfix">
-    <label>添加选项</label>
-    <view class="fl vote-add-item-data">
-        <view>
-          <view class="vote-option-add">
-            <i class="fa fa-minus-circle"></i>
-            <input class="bottom-line" placeholder="选项" auto-focus/>
-          </view>
-        </view>
-        <view>
-          <i class="fa fa-plus-circle"></i>
-        </view>
-    </view>
-  </view>
-  -->
-
-
-
   <view class="vote-add-item clearfix">
     <label>设置选项</label>
     <view class="vote-options fl vote-add-item-data">
@@ -73,7 +54,7 @@
   <!--弹窗 begin-->
   <view class="vote-item-add-mask"  wx:if="{{addNewVoteState}}">
     <view class="vote-item-add clearfix {{textareaFocusFlag ?'vote-item-add-active':''}}">
-      <textarea class="vote-add-item-data" bindfocus="bindTextAreaFocus" bindblur="bindTextAreablur"  bindinput="bindTextAreaInput"  auto-height maxlength="30" placeholder="请填写选项内容,内容不要超过20字" value="{{newVoteContent}}" />
+      <textarea class="vote-add-item-data" bindfocus="bindTextAreaFocus" bindblur="bindTextAreablur"  bindinput="bindTextAreaInput"  auto-height maxlength="30" placeholder="请填写选项内容,内容不要超过30字" value="{{newVoteContent}}" />
       <view class="clearfix">
         <text class="{{newVoteWordsState?'color-warn':''}}">{{newVoteWords}}/30</text>
       </view>

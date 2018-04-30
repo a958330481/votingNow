@@ -11,7 +11,6 @@ Page({
         newVoteWordsState: false,
         newVoteContent: '',
         newVotes: [],
-        avatarUrl: [],
         desTextareaData: '',
         voteTypeChoosed: 0,
         userAuthorization: '',
@@ -19,6 +18,7 @@ Page({
         voteDesLen: 0,
         desTextareaDataLen: 0,
         voteImgs: [],
+        voteImgPaths: [],
         voteTypes: [
             { name: 'F', value: '公开', checked: true },
             { name: 'T', value: '私密' }
@@ -100,7 +100,6 @@ Page({
     },
     confirmAddNewVote: function() {
         let voteContent = this.data.newVoteContent;
-        let voteImg = this.data.avatarUrl;
         let voteItem = {};
         var self = this;
         if (voteContent) {
@@ -116,11 +115,6 @@ Page({
             }, 2000)
             return;
         }
-        if (voteImg.length === 1) {
-            voteItem.image_url = voteImg[0];
-        } else {
-            voteItem.image_url = '';
-        }
         self.data.newVotes.push(voteItem);
         console.log(self.data.newVotes);
         self.setData({
@@ -130,7 +124,6 @@ Page({
             newVotes: self.data.newVotes,
             addNewVoteState: false,
             newVoteWords: 0,
-            avatarUrl: []
         });
 
     },
@@ -142,7 +135,6 @@ Page({
             newVoteWords: 0,
             newVoteWordsState: false,
             desTextareaState: false,
-            avatarUrl: []
         })
     },
     showMask: function() {
@@ -164,25 +156,56 @@ Page({
     },
     uploadImg: function() {
         var self = this;
+        let authorization = wx.getStorageSync('authorization');
         wx.chooseImage({
-            count: 2, // 最多可以选择的图片张数，默认9
-            sizeType: ['compressed'], // original 原图，compressed 压缩图，默认二者都有
+            count: 1, // 最多可以选择的图片张数
+            sizeType: ['compressed'], // compressed 压缩
             sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
             success: function(res) {
-                // success
-                var tempFilePaths = res.tempFilePaths
-                console.log(tempFilePaths[0]);
-                self.data.voteImgs.push(tempFilePaths[0]);
-                self.setData({
-                    avatarUrl: tempFilePaths,
-                    voteImgs: self.data.voteImgs
-                })
-                console.log(self.data.voteImgs)
-                wx.showToast({
-                    title: '图片上传成功',
-                    icon: 'success',
-                    duration: 1500
-                })
+                let tempFilePaths = res.tempFilePaths
+                wx.showLoading({
+                    title: '图片正在上传',
+                });
+                wx.uploadFile({
+                    url: util.baseUrl + '/api/images/store',
+                    filePath: tempFilePaths[0],
+                    name: 'image',
+                    header: {
+                        'content-type': 'multipart/form-data',
+                        Authorization: authorization
+                    },
+                    formData: {
+                        'image': tempFilePaths[0]
+                    },
+                    success: function(res) {
+                        let resData = JSON.parse(res.data);
+                        let pathObj = {};
+                        if (res.statusCode === 200) {
+                            let imgUrl = resData.host + resData.path;
+                            wx.hideLoading();
+                            wx.showToast({
+                                title: '成功',
+                                icon: 'success'
+                            });
+                            self.data.voteImgs.push(imgUrl);
+                            pathObj.path = resData.path;
+                            self.data.voteImgPaths.push(pathObj);
+                            self.setData({
+                                voteImgs: self.data.voteImgs,
+                                voteImgPaths: self.data.voteImgPaths
+                            })
+                        } else {
+                            wx.showModal({
+                                title: '提示',
+                                content: '上传失败,请重新上传',
+                                showCancel: false
+                            })
+                        }
+                    },
+                    complete: function() {
+                        wx.hideToast();
+                    }
+                });
             },
             fail: function() {
                 wx.showToast({
@@ -202,19 +225,40 @@ Page({
         console.log(e.currentTarget.dataset.src)
     },
     delImage: function(e) {
-        let i = e.currentTarget.dataset.index;
         let self = this;
+        let i = e.currentTarget.dataset.index;
+        let path = e.currentTarget.dataset.path;
         let voteImgs = self.data.voteImgs;
+        let authorization = wx.getStorageSync('authorization');
+        console.log(path);
         wx.showModal({
             title: '温馨提示',
             content: '确认删除该张图片？',
             success: function(res) {
                 if (res.confirm) {
-                    voteImgs.splice(i, 1)
-                    self.setData({
-                            voteImgs: voteImgs
-                        })
-                        //todo:图片删除接口
+                    wx.request({
+                        url: util.baseUrl + '/api/image?path=' + path,
+                        method: 'DELETE',
+                        header: {
+                            'accept': 'application/json',
+                            Authorization: authorization
+                        },
+                        success: function(res) {
+                            if (res.statusCode === 200) {
+                                wx.showToast({
+                                    title: '图片删除成功',
+                                    icon: 'success'
+                                });
+                                voteImgs.splice(i, 1)
+                                self.setData({
+                                    voteImgs: voteImgs
+                                })
+                            }
+                        },
+                        complete: function() {
+                            wx.hideToast();
+                        }
+                    })
                 }
             }
         })
@@ -289,7 +333,8 @@ Page({
                         title: newVoteTitle,
                         is_private: voteTypeChoosed,
                         content: desTextareaData,
-                        options: newVotes
+                        options: newVotes,
+                        images: self.data.voteImgPaths
                     },
                     method: 'POST',
                     header: {
@@ -305,9 +350,15 @@ Page({
                                 duration: 1500,
                                 mask: true
                             })
-                            wx.navigateTo({
-                                url: '../index/index'
-                            })
+                            if (self.data.voteTypeChoosed === 'T') {
+                                wx.navigateTo({
+                                    url: '../index/index?funType=mine'
+                                })
+                            } else {
+                                wx.navigateTo({
+                                    url: '../index/index?funType=all'
+                                })
+                            }
                         }
                     }
                 })
