@@ -5,7 +5,7 @@ page {
 .vote-item {
     margin-bottom: 16rpx;
     background-color: #ffffff;
-    box-shadow: 0 2rpx 2rpx rgba(0, 0, 0, 0.1), 0 -2rpx 2rpx rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2rpx 2rpx rgba(0, 0, 0, 0.06), 0 -2rpx 2rpx rgba(0, 0, 0, 0.06);
 }
 
 .vote-item-hd {
@@ -13,7 +13,7 @@ page {
     display: -webkit-flex;
     display: flex;
     align-items: center;
-    padding: 14rpx 0;
+    padding: 20rpx 0;
     font-size: 22rpx;
 }
 
@@ -61,15 +61,20 @@ page {
 }
 
 .vote-item-con-hd {
-    padding: 18rpx 28rpx;
+    padding-bottom: 18rpx;
     font-size: 24rpx;
     color: #8a8a8a;
 }
 
 .vote-title {
     margin-bottom: 12rpx;
+    padding: 0 28rpx;
     font-size: 30rpx;
     color: #515151;
+}
+
+.vote-des-content {
+    padding: 0 28rpx;
 }
 
 .vote-item-data {
@@ -225,4 +230,18 @@ page {
     height: 84rpx;
     line-height: 84rpx;
     background-color: #7087f4;
+}
+
+.vote-imgs {
+    display: -webkit-flex;
+    display: flex;
+    margin-bottom: 16rpx;
+}
+
+.vote-img-box {
+    flex: 1;
+}
+
+.vote-imgs-more {
+    display: block;
 }

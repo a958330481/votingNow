@@ -1,8 +1,12 @@
 var filter = {
   numberToFix: function (value) {
     return value.toFixed(1)
+  },
+  delWithPath:function(path){
+    return 'https://www.minivote.cn'+path
   }
 }
 module.exports = {
-  numberToFix: filter.numberToFix
+  numberToFix: filter.numberToFix,
+  delWithPath:filter.delWithPath
 }

@@ -34,12 +34,10 @@ Page({
         let self = this;
         let filterName = self.data.filterName;
         authorization = wx.getStorageSync('authorization');
-        console.log('下拉刷新')
         wx.showNavigationBarLoading()
         self.getVoteList('refresh', 1, filterName);
     },
     onReachBottom: function() {
-        console.log('滚动条到底部，请求更多数据')
         let self = this;
         let pesoPgNo = self.data.currentPage;
         let filterName = self.data.filterName;
@@ -96,6 +94,12 @@ Page({
             }
         }
     },
+    bindPreviewImage: function(e) {
+        var self = this;
+        wx.previewImage({
+            current: e.currentTarget.dataset.src // 当前显示图片的http链接
+        })
+    },
     getVoteList: function(type, pageNum, filterName) {
         let self = this;
         let totalVotes = self.data.votes;
@@ -103,7 +107,7 @@ Page({
             wx.showLoading({
                 title: '加载中',
             })
-        }, 300);
+        }, 400);
         authorization = wx.getStorageSync('authorization');
         wx.request({
             url: util.baseUrl + '/api/votes',

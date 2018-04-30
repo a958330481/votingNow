@@ -25,7 +25,7 @@
         <image wx:if="{{item}}" data-src="{{item}}" src="{{item}}" mode="aspectFill" bindtap="bindPreviewImage"></image>
         <i class="fa fa-remove" data-path="{{voteImgPaths[index].path}}" data-index="{{index}}" bindtap = "delImage"></i>
       </view>
-      <image wx:if="{{voteImgs.length < 5}}" src="../../images/uploadImg.png"  catchtap="uploadImg"></image>
+      <image hidden="{{voteImgs.length==4?true:false}}" src="../../images/uploadImg.png"  catchtap="uploadImg"></image>
     </view>
   </view>
   <view class="vote-add-item clearfix">

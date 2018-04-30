@@ -222,7 +222,6 @@ Page({
             current: e.currentTarget.dataset.src, // 当前显示图片的http链接
             urls: self.data.voteImgs // 需要预览的图片http链接列表
         })
-        console.log(e.currentTarget.dataset.src)
     },
     delImage: function(e) {
         let self = this;

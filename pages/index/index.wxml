@@ -27,8 +27,24 @@
         </view>
         <view class="vote-item-con">
             <view class="vote-item-con-hd bottom-line">
+                <!--配图 begin-->
+                <view class="vote-imgs {{vote.data.images.length>=3?'vote-imgs-more':''}}" wx:if="{{vote.data.images.length>0}}">
+                    <view wx:if="{{vote.data.images.length<3}}" wx:for="{{vote.data.images}}" class="vote-img-box">
+                        <image data-src="{{filter.delWithPath(item.path)}}" src="{{filter.delWithPath(item.path)}}" mode="aspectFill" bindtap="bindPreviewImage"></image>
+                    </view>
+                    <view wx:if="{{vote.data.images.length>=3}}">
+                    <swiper indicator-dots="true" indicator-color="#58c9b9" indicator-active-color="#d1b6e1">
+                        <block wx:for="{{vote.data.images}}">
+                            <swiper-item>
+                            <image src="{{filter.delWithPath(item.path)}}" class="slide-image" width="100%" height="auto" mode="widthFix"></image>
+                            </swiper-item>
+                        </block>
+                    </swiper>
+                    </view>
+                </view>
+                <!--配图 end-->
                 <view class="vote-title">{{vote.data.title}}</view>
-                <view wx:if="{{vote.data.content}}">{{vote.data.content}}</view>
+                <view class="vote-des-content" wx:if="{{vote.data.content}}">{{vote.data.content}}</view>
             </view>
             <view wx:if="{{vote.result}}">
                 <!--当前用户已投票 begin-->
