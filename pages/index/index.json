@@ -2,7 +2,7 @@
     "navigationBarTitleText": "投一票",
     "navigationBarBackgroundColor": "#7087f4",
     "navigationBarTextStyle": "white",
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "enablePullDownRefresh": true,
     "backgroundColor": "#e1e8f6"
 }
