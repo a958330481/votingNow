@@ -29,14 +29,14 @@
             <view class="vote-item-con-hd bottom-line">
                 <!--配图 begin-->
                 <view class="vote-imgs {{vote.data.images.length>=3?'vote-imgs-more':''}}" wx:if="{{vote.data.images.length>0}}">
-                    <view wx:if="{{vote.data.images.length<3}}" wx:for="{{vote.data.images}}" class="vote-img-box">
-                        <image data-src="{{filter.delWithPath(item.path)}}" src="{{filter.delWithPath(item.path)}}" mode="aspectFill" bindtap="bindPreviewImage"></image>
+                    <view wx:if="{{vote.data.images.length<3}}" wx:for="{{vote.data.images}}" wx:key="{{index}}" class="vote-img-box">
+                        <image data-src="{{filter.delWithPath(item.path)}}" data-images="{{vote.data.images}}" src="{{filter.delWithPath(item.path)}}"  mode="aspectFill" bindtap="bindPreviewImage"></image>
                     </view>
                     <view wx:if="{{vote.data.images.length>=3}}">
                     <swiper indicator-dots="true" indicator-color="#58c9b9" indicator-active-color="#d1b6e1">
-                        <block wx:for="{{vote.data.images}}">
+                        <block wx:for="{{vote.data.images}}" wx:key="{{index}}">
                             <swiper-item>
-                            <image src="{{filter.delWithPath(item.path)}}" class="slide-image" width="100%" height="auto" mode="widthFix"></image>
+                            <image src="{{filter.delWithPath(item.path)}}" data-src="{{filter.delWithPath(item.path)}}"  data-images="{{vote.data.images}}" class="slide-image" width="100%" height="auto" mode="aspectFill" bindtap="bindPreviewImage"></image>
                             </swiper-item>
                         </block>
                     </swiper>
@@ -72,7 +72,7 @@
         </view>
         <view class="vote-item-ft top-line">
             <i class="fa fa-align-left"  bindtap="targetToVoteDetail" data-src="{{vote.data.id}}"><text> {{vote.data.voters_count}}</text></i>
-            <button open-type="share" plain="true"><i class="fa fa-retweet" bindtap="onShareAppMessage"></i></button>
+            <button open-type="share" plain="true"><i class="fa fa-retweet" data-nickname="{{vote.data.user.nick_name}}" bindtap="onShareAppMessage"></i></button>
         </view>
     </view>
     <!--list end-->

@@ -74,7 +74,7 @@ Page({
         let voteId = e.currentTarget.dataset.src;
         console.log(voteId);
         wx.navigateTo({
-            url: '../voteDetail/voteDetail?voteId=' + voteId,
+            url: '../voterDetail/voterDetail?voteId=' + voteId,
             success: function(res) {
                 console.log(res)
             }
@@ -82,6 +82,7 @@ Page({
     },
     onShareAppMessage: function(res) {
         let self = this;
+        console.log(res.from)
         if (res.from === 'button') {
             // 来自页面内转发按钮
             console.log(res)
@@ -95,9 +96,15 @@ Page({
         }
     },
     bindPreviewImage: function(e) {
-        var self = this;
+        let self = this;
+        let imgs = e.currentTarget.dataset.images;
+        let finalImgs = [];
+        imgs.forEach(function(item, index) {
+            finalImgs[index] = util.baseUrl + item.path;
+        })
         wx.previewImage({
-            current: e.currentTarget.dataset.src // 当前显示图片的http链接
+            current: e.currentTarget.dataset.src,
+            urls: finalImgs
         })
     },
     getVoteList: function(type, pageNum, filterName) {

@@ -67,7 +67,8 @@ page {
 }
 
 .vote-title {
-    margin-bottom: 12rpx;
+    margin-top: 14rpx;
+    margin-bottom: 8rpx;
     padding: 0 28rpx;
     font-size: 30rpx;
     color: #515151;
@@ -102,7 +103,8 @@ page {
 
 .vote-item-data-percent {
     position: absolute;
-    right: 28rpx;
+    right: 12rpx;
+    color: #7087f4;
 }
 
 .vote-item-data-voted {
