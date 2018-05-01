@@ -74,7 +74,7 @@ Page({
             newVoteWords: e.detail.cursor,
             newVoteContent: e.detail.value
         })
-        if (self.data.newVoteWords === 30) {
+        if (self.data.newVoteWords === 20) {
             self.setData({
                 newVoteWordsState: true
             })
@@ -249,8 +249,10 @@ Page({
                                     icon: 'success'
                                 });
                                 voteImgs.splice(i, 1)
+                                self.data.voteImgPaths.splice(i, 1)
                                 self.setData({
-                                    voteImgs: voteImgs
+                                    voteImgs: voteImgs,
+                                    voteImgPaths: self.data.voteImgPaths
                                 })
                             }
                         },
