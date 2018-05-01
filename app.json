@@ -1,9 +1,10 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/voteDetail/voteDetail",
         "pages/comment/comment",
         "pages/authorizetip/authorizetip",
-        "pages/voteDetail/voteDetail",
+        "pages/voterDetail/voterDetail",
         "pages/vote/vote"
     ],
     "window": {

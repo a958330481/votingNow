@@ -72,7 +72,7 @@
         </view>
         <view class="vote-item-ft top-line">
             <i class="fa fa-align-left"  bindtap="targetToVoteDetail" data-src="{{vote.data.id}}"><text> {{vote.data.voters_count}}</text></i>
-            <button open-type="share" plain="true"><i class="fa fa-retweet" data-nickname="{{vote.data.user.nick_name}}" bindtap="onShareAppMessage"></i></button>
+            <button open-type="share" plain="true" data-voteid="{{vote.data.id}}" data-nickname="{{vote.data.user.nick_name}}" bindtap="onShareAppMessage"><i class="fa fa-retweet"></i></button>
         </view>
     </view>
     <!--list end-->

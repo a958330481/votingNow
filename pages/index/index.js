@@ -74,7 +74,7 @@ Page({
         let voteId = e.currentTarget.dataset.src;
         console.log(voteId);
         wx.navigateTo({
-            url: '../voterDetail/voterDetail?voteId=' + voteId,
+            url: '/pages/voteDetail/voteDetail?shareFrom=index&nickname&voteId=' + voteId,
             success: function(res) {
                 console.log(res)
             }
@@ -82,14 +82,17 @@ Page({
     },
     onShareAppMessage: function(res) {
         let self = this;
-        console.log(res.from)
+        let nickname = res.target.dataset.nickname;
+        let voteId = res.target.dataset.voteid;
+        let shareTitle = nickname ? nickname : '朋友';
+        console.log(voteId)
         if (res.from === 'button') {
             // 来自页面内转发按钮
             console.log(res)
         }
         return {
-            title: '朋友等你投一票！',
-            path: '/pages/index/index?funType=' + self.data.filterName,
+            title: shareTitle + '等你投一票！',
+            path: '/pages/voteDetail/voteDetail?shareFrom=share&nickname=' + nickname + '&voteId=' + voteId,
             success: function(res) {
                 // 转发成功
             }
