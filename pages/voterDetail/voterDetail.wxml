@@ -1,0 +1,32 @@
+<view class="vote-detail">
+    <view class="vote-detail-item" wx:for="{{voteDetails.options}}" wx:key="{{index}}" wx:for-item="voteItem">
+      <view class="vote-detail-item-hd"><text class="vote-option-tip">选项{{index+1}}:</text>{{voteItem.title}}</view>
+      <view wx:if="{{voteItem.voters.length>0}}" class="vote-detail-item-con">
+        <view wx:for="{{voteItem.voters}}" wx:key="{{index}}">
+          <image src="{{item}}" mode="aspectFill"></image>
+        </view>
+      </view>
+      <view class="no-votes-tip" wx:else>此项暂无投票</view>
+    </view>
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+

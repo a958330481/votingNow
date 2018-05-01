@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "投票详情",
+    "navigationBarBackgroundColor": "#7087f4",
+    "navigationBarTextStyle": "white",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#7087f4"
+}
