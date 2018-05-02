@@ -23,9 +23,20 @@ const baseUrl = 'https://www.minivote.cn'
 const app = getApp()
 
 const request = (object) => {
-    let token, authorization, _header, _success = object.success
+    let token,
+        authorization,
+        _header,
+        _success = object.success,
+        hasTokenOnStorage = true
 
-    authorization = wx.getStorageSync('authorization');
+    try {
+        authorization = wx.getStorageSync('authorization');
+        hasTokenOnStorage = !!authorization
+    } catch (e) {
+        hasTokenOnStorage = false
+    }
+
+    if (!hasTokenOnStorage) return
 
     _header = {
         'accept': 'application/json',
@@ -37,7 +48,7 @@ const request = (object) => {
         token = res.header.authorization
         token && wx.setStorageSync('authorization', token)
 
-        if (res.header.status == 401) {
+        if ( res.header.status == 401) {
             wx.showModal({
                 content: '登录信息已过期，请重新授权',
                 showCancel: false,
