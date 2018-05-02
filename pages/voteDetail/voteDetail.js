@@ -96,7 +96,9 @@ Page({
         let self = this;
         let voteId = e.currentTarget.dataset.id;
         let authorization = wx.getStorageSync('authorization');
-        console.log(voteId)
+        wx.showLoading({
+            title: '正在处理，请稍后',
+        });
         wx.request({
             url: util.baseUrl + '/api/options/' + voteId + '/vote',
             method: 'POST',
@@ -143,6 +145,7 @@ Page({
                         voterDetails: res.data.data.options,
                         voterTitle: res.data.data.title
                     })
+                    wx.hideLoading();
                     wx.stopPullDownRefresh()
                     wx.hideNavigationBarLoading()
                 }

@@ -62,7 +62,6 @@ Page({
     bindDesTextAreaInput: function(e) {
         let self = this;
         let desTextLen = e.detail.cursor;
-        console.log(e.detail.cursor)
         self.setData({
             desTextareaData: e.detail.value,
             desTextareaDataLen: e.detail.cursor
@@ -116,7 +115,6 @@ Page({
             return;
         }
         self.data.newVotes.push(voteItem);
-        console.log(self.data.newVotes);
         self.setData({
             desTextareaState: !self.data.desTextareaState,
             addNewVoteState: !self.data.addNewVoteState,
@@ -229,7 +227,6 @@ Page({
         let path = e.currentTarget.dataset.path;
         let voteImgs = self.data.voteImgs;
         let authorization = wx.getStorageSync('authorization');
-        console.log(path);
         wx.showModal({
             title: '温馨提示',
             content: '确认删除该张图片？',
@@ -343,7 +340,6 @@ Page({
                         Authorization: authorization
                     },
                     success: function(res) {
-                        console.log(res)
                         if (res.statusCode === 200) {
                             wx.showToast({
                                 title: '发布成功',

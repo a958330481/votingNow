@@ -27,8 +27,11 @@ Page({
         } else {
             funType = self.data.filterName
         }
-        authorization = wx.getStorageSync('authorization');
         self.getVoteList('', 1, funType);
+    },
+    onShow: function() {
+        let self = this;
+        self.getVoteList('', 1, 'all');
     },
     onPullDownRefresh: function() {
         let self = this;
