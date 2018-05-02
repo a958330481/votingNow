@@ -114,6 +114,7 @@ Page({
     getVoteList: function(type, pageNum, filterName) {
         let self = this;
         let totalVotes = self.data.votes;
+        let authorization = wx.getStorageSync('authorization');
         let timer = setTimeout(() => {
             wx.showLoading({
                 title: '加载中',
@@ -122,6 +123,10 @@ Page({
         util.request({
             url: util.baseUrl + '/api/votes',
             method: 'GET',
+            header: {
+                'accept': 'application/json',
+                Authorization: authorization
+            },
             data: {
                 page: pageNum,
                 filter: filterName
@@ -131,19 +136,15 @@ Page({
                 clearTimeout(timer);
                 if (res.statusCode === 200) {
                     self.setData({
-                        totalPageNum: res.data.meta.last_page
+                        totalPageNum: res.data.meta.last_page,
+                        votes: res.data.data
                     });
                     if (type === "loadMore") {
                         totalVotes = totalVotes.concat(res.data.data)
                         self.setData({
                             votes: totalVotes
                         })
-                    } else {
-                        self.setData({
-                            votes: res.data.data
-                        })
-                    }
-                    if (type === "refresh") {
+                    } else if (type === "refresh") {
                         wx.showToast({
                             title: '刷新成功',
                             icon: 'success',
