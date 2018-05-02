@@ -20,6 +20,8 @@ const numberToFixed = n => {
 
 const baseUrl = 'https://www.minivote.cn'
 
+const app = getApp()
+
 const request = (object) => {
     let token, _success = object.success
 
@@ -28,7 +30,15 @@ const request = (object) => {
         token && wx.setStorageSync('authorization', token)
 
         if (res.header.status == 401) {
-            // TODO: 重新登陆
+            wx.showModal({
+                content: '登录信息已过期，请重新授权',
+                showCancel: false,
+                success: function(res) {
+                    if (res.confirm) {
+                        app.getUserInfo()
+                    }
+                }
+            })
         }
 
         _success && _success(res)
