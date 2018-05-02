@@ -46,7 +46,7 @@ const request = (object) => {
 
     object.success = res => {
         token = res.header.authorization
-        token && wx.setStorageSync('authorization', token)
+        wx.setStorageSync('authorization', token)
 
         if ( res.header.status == 401) {
             wx.showModal({
