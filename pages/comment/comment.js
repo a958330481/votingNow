@@ -154,7 +154,6 @@ Page({
     },
     uploadImg: function() {
         var self = this;
-        let authorization = wx.getStorageSync('authorization');
         wx.chooseImage({
             count: 1, // 最多可以选择的图片张数
             sizeType: ['compressed'], // compressed 压缩
@@ -164,44 +163,55 @@ Page({
                 wx.showLoading({
                     title: '图片正在上传',
                 });
-                wx.uploadFile({
-                    url: util.baseUrl + '/api/images/store',
-                    filePath: tempFilePaths[0],
-                    name: 'image',
+                util.request({  // 防止 token 过期
+                    url: util.baseUrl + '/api/me',
+                    method: 'GET',
                     header: {
-                        'content-type': 'multipart/form-data',
-                        Authorization: authorization
+                        Authorization: self.data.userAuthorization
                     },
-                    formData: {
-                        'image': tempFilePaths[0]
-                    },
-                    success: function(res) {
-                        let resData = JSON.parse(res.data);
-                        let pathObj = {};
-                        if (res.statusCode === 200) {
-                            let imgUrl = resData.host + resData.path;
-                            wx.hideLoading();
-                            wx.showToast({
-                                title: '成功',
-                                icon: 'success'
-                            });
-                            self.data.voteImgs.push(imgUrl);
-                            pathObj.path = resData.path;
-                            self.data.voteImgPaths.push(pathObj);
-                            self.setData({
-                                voteImgs: self.data.voteImgs,
-                                voteImgPaths: self.data.voteImgPaths
-                            })
-                        } else {
-                            wx.showModal({
-                                title: '提示',
-                                content: '上传失败,请重新上传',
-                                showCancel: false
-                            })
-                        }
-                    },
-                    complete: function() {
-                        wx.hideToast();
+                    success: function (res) {
+                        self.data.userAuthorization = wx.getStorageSync('authorization');
+
+                        wx.uploadFile({
+                            url: util.baseUrl + '/api/images/store',
+                            filePath: tempFilePaths[0],
+                            name: 'image',
+                            header: {
+                                'content-type': 'multipart/form-data',
+                                Authorization: self.data.userAuthorization
+                            },
+                            formData: {
+                                'image': tempFilePaths[0]
+                            },
+                            success: function(res) {
+                                let resData = JSON.parse(res.data);
+                                let pathObj = {};
+                                if (res.statusCode === 200) {
+                                    let imgUrl = resData.host + resData.path;
+                                    wx.hideLoading();
+                                    wx.showToast({
+                                        title: '成功',
+                                        icon: 'success'
+                                    });
+                                    self.data.voteImgs.push(imgUrl);
+                                    pathObj.path = resData.path;
+                                    self.data.voteImgPaths.push(pathObj);
+                                    self.setData({
+                                        voteImgs: self.data.voteImgs,
+                                        voteImgPaths: self.data.voteImgPaths
+                                    })
+                                } else {
+                                    wx.showModal({
+                                        title: '提示',
+                                        content: '上传失败,请重新上传',
+                                        showCancel: false
+                                    })
+                                }
+                            },
+                            complete: function() {
+                                wx.hideToast();
+                            }
+                        })
                     }
                 });
             },
@@ -232,7 +242,7 @@ Page({
             content: '确认删除该张图片？',
             success: function(res) {
                 if (res.confirm) {
-                    wx.request({
+                    util.request({
                         url: util.baseUrl + '/api/image?path=' + path,
                         method: 'DELETE',
                         header: {
@@ -325,7 +335,7 @@ Page({
                 'createTime': createTime
             },
             success: function() {
-                wx.request({
+                util.request({
                     url: util.baseUrl + '/api/votes',
                     data: {
                         title: newVoteTitle,

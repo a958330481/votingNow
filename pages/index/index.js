@@ -120,7 +120,7 @@ Page({
             })
         }, 400);
         authorization = wx.getStorageSync('authorization');
-        wx.request({
+        util.request({
             url: util.baseUrl + '/api/votes',
             method: 'GET',
             header: {
@@ -180,7 +180,7 @@ Page({
         let voteId = e.currentTarget.dataset.src;
         let voteIndex = e.currentTarget.dataset.vindex;
         let index = e.currentTarget.dataset.index;
-        wx.request({
+        util.request({
             url: util.baseUrl + '/api/options/' + voteId + '/vote',
             method: 'POST',
             header: {
@@ -238,7 +238,7 @@ Page({
             itemColor: '#d81e06',
             success: function(res) {
                 if (res.tapIndex === 0) {
-                    wx.request({
+                    util.request({
                         url: util.baseUrl + '/api/votes/' + voteId,
                         method: 'DELETE',
                         header: {

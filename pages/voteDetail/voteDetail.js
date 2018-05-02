@@ -35,7 +35,7 @@ Page({
                 nickname: nickname
             })
         }
-        wx.request({
+        util.request({
             url: util.baseUrl + '/api/votes/' + voteId,
             method: 'GET',
             header: {
@@ -98,7 +98,7 @@ Page({
         wx.showLoading({
             title: '正在处理，请稍后',
         });
-        wx.request({
+        util.request({
             url: util.baseUrl + '/api/options/' + voteId + '/vote',
             method: 'POST',
             header: {
@@ -129,7 +129,7 @@ Page({
     getVoterList: function(voteId) {
         let self = this;
         let authorization = wx.getStorageSync('authorization');
-        wx.request({
+        util.request({
             url: util.baseUrl + '/api/votes/' + voteId + '/voters',
             method: 'GET',
             header: {

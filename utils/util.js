@@ -20,8 +20,26 @@ const numberToFixed = n => {
 
 const baseUrl = 'https://www.minivote.cn'
 
+const request = (object) => {
+    let token, _success = object.success
+
+    object.success = res => {
+        token = res.header.authorization
+        token && wx.setStorageSync('authorization', token)
+
+        if (res.header.status == 401) {
+            // TODO: 重新登陆
+        }
+
+        _success && _success(res)
+    }
+
+    wx.request(object)
+}
+
 module.exports = {
     formatTime: formatTime,
     baseUrl: baseUrl,
-    numberToFixed: numberToFixed
+    numberToFixed: numberToFixed,
+    request
 }

@@ -19,7 +19,7 @@ Page({
                 voteId: voteId
             })
         }
-        wx.request({
+        util.request({
             url: util.baseUrl + '/api/votes/' + voteId + '/voters',
             method: 'GET',
             header: {
