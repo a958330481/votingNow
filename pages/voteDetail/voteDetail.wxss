@@ -10,6 +10,7 @@ page {
     padding: 28rpx;
     font-size: 28rpx;
     background-color: #ffffff;
+    box-shadow: 0 2rpx 2rpx rgba(0, 0, 0, 0.1);
 }
 
 .vote-title {
@@ -30,6 +31,7 @@ page {
 }
 
 .vote-imgs image {
+    display: block;
     width: 100%;
 }
 
@@ -44,27 +46,26 @@ page {
     color: #7087f4;
 }
 
-.view-option-box {
-    background-color: #ffffff;
-}
-
 .vote-option {
     position: relative;
-    width: 100%;
-    height: 86rpx;
-    line-height: 86rpx;
+    height: 100rpx;
+    box-sizing: border-box;
+    padding-left: 14rpx;
+    line-height: 100rpx;
     font-size: 28rpx;
-    text-align: center;
     color: #707070;
     -webkit-transition: 2s width ease-in-out;
     transition: 2s width ease-in-out;
+    background-color: #ffffff;
+    margin: 16rpx 0;
+    box-shadow: 0 2rpx 2rpx rgba(0, 0, 0, 0.06), 0 -2rpx 2rpx rgba(0, 0, 0, 0.06);
 }
 
 .vote-progress-state {
     position: absolute;
     top: 0;
     left: 0;
-    height: 86rpx;
+    height: 100rpx;
     opacity: .5;
 }
 
@@ -76,17 +77,19 @@ page {
     margin-top: 16rpx;
     font-size: 28rpx;
     color: #707070;
-    background-color: #ffffff;
 }
 
 .voter-title {
     padding: 20rpx 0;
-    font-size: 32rpx;
+    font-size: 28rpx;
     color: #7087f4;
 }
 
 .voter-item {
     padding: 0 28rpx;
+    margin-bottom: 16rpx;
+    background-color: #ffffff;
+    box-shadow: 0 2rpx 2rpx rgba(0, 0, 0, 0.06), 0 -2rpx 2rpx rgba(0, 0, 0, 0.06);
 }
 
 .voter-item image {
@@ -103,7 +106,7 @@ page {
 
 .no-data-tip {
     display: block;
-    padding: 20rpx 0;
+    padding: 28rpx 0;
     text-align: center;
 }
 
@@ -135,8 +138,10 @@ page {
 }
 
 .view-option-box-title {
-    padding: 20rpx 28rpx;
-    font-size: 30rpx;
+    margin: 36rpx 28rpx;
+    padding-left: 14rpx;
+    font-size: 30rpx !important;
     font-weight: bold;
     color: #707070;
+    border-left: 8rpx solid #7087f4;
 }

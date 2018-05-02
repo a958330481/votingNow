@@ -70,7 +70,6 @@ Page({
                 }
             },
             fail: function(res) {
-                console.log(res)
                 wx.showToast({
                     title: '数据请求失败，请稍后再试',
                     icon: 'none',
@@ -107,7 +106,6 @@ Page({
                 Authorization: authorization
             },
             success: function(res) {
-                console.log(res.data.data)
                 if (res.statusCode === 200) {
                     self.data.voterCount++;
                     self.setData({
@@ -151,7 +149,6 @@ Page({
                 }
             },
             fail: function(res) {
-                console.log(res)
                 wx.showToast({
                     title: '数据请求失败，请稍后再试',
                     icon: 'none',

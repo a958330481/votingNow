@@ -31,7 +31,8 @@ Page({
     },
     onShow: function() {
         let self = this;
-        self.getVoteList('', 1, 'all');
+        let type = self.data.filterName || 'all';
+        self.getVoteList('', 1, type);
     },
     onPullDownRefresh: function() {
         let self = this;
@@ -73,9 +74,7 @@ Page({
         })
     },
     targetToVoteDetail: function(e) {
-        console.log(e);
         let voteId = e.currentTarget.dataset.src;
-        console.log(voteId);
         wx.navigateTo({
             url: '/pages/voteDetail/voteDetail?shareFrom=index&nickname&voteId=' + voteId,
             success: function(res) {
@@ -88,7 +87,6 @@ Page({
         let nickname = res.target.dataset.nickname;
         let voteId = res.target.dataset.voteid;
         let shareTitle = nickname ? nickname : '朋友';
-        console.log(voteId)
         if (res.from === 'button') {
             // 来自页面内转发按钮
             console.log(res)

@@ -28,7 +28,7 @@
   <view class="vote-detail-con">
     <!--投票选项 已投票 begin-->
     <view class="view-option-box"  wx:if="{{voteResult.length>0}}">
-      <view class="view-option-box-title bottom-line">投票选项</view>
+      <view class="view-option-box-title">投票选项</view>
       <view class="vote-option" data-index="{{index}}" data-id="{{item.id}}" wx:for="{{voteResult}}" wx:key="{{index}}">
           <text>{{item.title}}</text>
           <text class="vote-option-percent">{{item.vote_count}}票</text>
@@ -38,8 +38,8 @@
     <!--投票选项 已投票 end-->
     <!--投票选项 未投票 begin-->
     <view class="view-option-box" wx:elif="{{voteResult.length===0}}">
-      <view class="view-option-box-title bottom-line">投票选项</view>
-      <view wx:if="{{index+1<voteOptions.length}}" class="vote-option bottom-line" data-id="{{item.id}}" bindtap="onVote" hover-class="vote-option-hover" wx:for="{{voteOptions}}" wx:key="{{index}}">
+      <view class="view-option-box-title">投票选项</view>
+      <view wx:if="{{index+1<voteOptions.length}}" class="vote-option" data-id="{{item.id}}" bindtap="onVote" hover-class="vote-option-hover" wx:for="{{voteOptions}}" wx:key="{{index}}">
         <text>{{item.title}}</text>
       </view>
       <view wx:if="{{index+1===voteOptions.length}}" class="vote-option" data-id="{{item.id}}" bindtap="onVote"  hover-class="vote-option-hover" wx:for="{{voteOptions}}" wx:key="{{index}}">
@@ -49,7 +49,7 @@
     <!--投票选项 未投票 end-->
     <!--投票结果 begin-->
     <view class="voter-list" wx:if="{{voterDetails.length>0 && voteResult.length>0}}">
-     <view class="view-option-box-title bottom-line">投票结果</view>
+     <view class="view-option-box-title">投票结果</view>
       <view class="voter-item" wx:for="{{voterDetails}}" wx:key="{{index}}" wx:for-item="voteItem" wx:for-index="voteIndex">
           <view class="voter-title bottom-line">选项{{voteIndex+1}}：{{voteItem.title}}</view>
           <view class="voter-img-list" wx:if="{{voteItem.voters.length>0}}">
