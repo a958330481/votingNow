@@ -7,7 +7,7 @@ Page({
     data: {
         votes: '',
         totalPageNum: 0,
-        currentPage: 0,
+        currentPage: 1,
         bottomLineState: false,
         votedColor: ['#9dc8c8', '#58c9b9', '#519d9e', '#d1b6e1'],
         filterName: 'all',
