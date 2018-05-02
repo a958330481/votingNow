@@ -152,3 +152,16 @@ page {
     color: #707070;
     border-left: 8rpx solid #7087f4;
 }
+
+.vote-imgs {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.vote-img-box {
+    flex: 1;
+}
+
+.vote-imgs-more {
+    display: block;
+}
