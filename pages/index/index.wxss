@@ -37,7 +37,6 @@ page {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-
 }
 
 .vote-item-hd-op {
@@ -90,7 +89,7 @@ page {
     position: relative;
     width: 100%;
     height: 72rpx;
-    padding-left: 28rpx;
+    text-align: center;
     line-height: 72rpx;
     box-sizing: border-box;
     color: #7087f4;
@@ -116,6 +115,8 @@ page {
 }
 
 .vote-item-data-voted {
+    padding-left: 28rpx;
+    text-align: left;
     color: #515151;
     -webkit-transition: 2s width ease-in-out;
     transition: 2s width ease-in-out;
