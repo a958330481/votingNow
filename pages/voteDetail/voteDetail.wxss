@@ -50,15 +50,22 @@ page {
     position: relative;
     height: 100rpx;
     box-sizing: border-box;
-    padding-left: 14rpx;
     line-height: 100rpx;
-    font-size: 28rpx;
-    color: #707070;
+    font-size: 32rpx;
+    text-align: center;
+    color: #7087f4;
     -webkit-transition: 2s width ease-in-out;
     transition: 2s width ease-in-out;
     background-color: #ffffff;
     margin: 16rpx 0;
     box-shadow: 0 2rpx 2rpx rgba(0, 0, 0, 0.06), 0 -2rpx 2rpx rgba(0, 0, 0, 0.06);
+}
+
+.vote-option-voted {
+    padding-left: 28rpx;
+    font-size: 28rpx;
+    text-align: left;
+    color: #707070;
 }
 
 .vote-progress-state {

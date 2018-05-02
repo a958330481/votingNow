@@ -67,7 +67,7 @@ Page({
     },
     targetToAdd: function() {
         wx.navigateTo({
-            url: '../comment/comment',
+            url: '/pages/comment/comment',
             success: function(res) {
                 console.log(res)
             }
@@ -146,7 +146,7 @@ Page({
                     if (type === "refresh") {
                         wx.showToast({
                             title: '刷新成功',
-                            icon: 'success', // loading
+                            icon: 'success',
                             duration: 1200,
                             mask: true
                         });
