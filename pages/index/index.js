@@ -119,15 +119,9 @@ Page({
                 title: '加载中',
             })
         }, 400);
-        authorization = wx.getStorageSync('authorization');
         util.request({
             url: util.baseUrl + '/api/votes',
             method: 'GET',
-            header: {
-                'content-type': 'application/json',
-                'accept': 'application/json',
-                Authorization: authorization
-            },
             data: {
                 page: pageNum,
                 filter: filterName
@@ -183,10 +177,6 @@ Page({
         util.request({
             url: util.baseUrl + '/api/options/' + voteId + '/vote',
             method: 'POST',
-            header: {
-                'accept': 'application/json',
-                Authorization: authorization
-            },
             success: function(res) {
                 if (res.statusCode === 200) {
                     self.data.votes[voteIndex].result = res.data
@@ -226,7 +216,6 @@ Page({
     voteOP: function(e) {
         let voteIndex = e.currentTarget.dataset.index;
         let voteId = e.currentTarget.dataset.voteid;
-        let authorization = wx.getStorageSync('authorization');
         let self = this;
         let delData;
         self.setData({
@@ -241,10 +230,6 @@ Page({
                     util.request({
                         url: util.baseUrl + '/api/votes/' + voteId,
                         method: 'DELETE',
-                        header: {
-                            'accept': 'application/json',
-                            Authorization: authorization
-                        },
                         success: function(res) {
                             if (res.statusCode === 200) {
                                 self.data.votes.splice(voteIndex, 1)

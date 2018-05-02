@@ -13,7 +13,6 @@ Page({
         newVotes: [],
         desTextareaData: '',
         voteTypeChoosed: 0,
-        userAuthorization: '',
         voteTitleLen: 0,
         voteDesLen: 0,
         desTextareaDataLen: 0,
@@ -154,6 +153,8 @@ Page({
     },
     uploadImg: function() {
         var self = this;
+        let authorization = wx.getStorageSync('authorization');
+
         wx.chooseImage({
             count: 1, // 最多可以选择的图片张数
             sizeType: ['compressed'], // compressed 压缩
@@ -166,9 +167,6 @@ Page({
                 util.request({  // 防止 token 过期
                     url: util.baseUrl + '/api/me',
                     method: 'GET',
-                    header: {
-                        Authorization: self.data.userAuthorization
-                    },
                     success: function (res) {
                         self.data.userAuthorization = wx.getStorageSync('authorization');
 
@@ -177,8 +175,7 @@ Page({
                             filePath: tempFilePaths[0],
                             name: 'image',
                             header: {
-                                'content-type': 'multipart/form-data',
-                                Authorization: self.data.userAuthorization
+                                Authorization: authorization
                             },
                             formData: {
                                 'image': tempFilePaths[0]
@@ -236,7 +233,6 @@ Page({
         let i = e.currentTarget.dataset.index;
         let path = e.currentTarget.dataset.path;
         let voteImgs = self.data.voteImgs;
-        let authorization = wx.getStorageSync('authorization');
         wx.showModal({
             title: '温馨提示',
             content: '确认删除该张图片？',
@@ -245,10 +241,6 @@ Page({
                     util.request({
                         url: util.baseUrl + '/api/image?path=' + path,
                         method: 'DELETE',
-                        header: {
-                            'accept': 'application/json',
-                            Authorization: authorization
-                        },
                         success: function(res) {
                             if (res.statusCode === 200) {
                                 wx.showToast({
@@ -301,7 +293,6 @@ Page({
         let desTextareaData = self.data.desTextareaData;
         let newVotes = self.data.newVotes;
         let createTime = util.formatTime(new Date());
-        let authorization = self.data.userAuthorization;
         if (newVoteTitle == "") {
             wx.showToast({
                 title: '请输入【投票标题】后再提交',
@@ -345,10 +336,6 @@ Page({
                         images: self.data.voteImgPaths
                     },
                     method: 'POST',
-                    header: {
-                        'accept': 'application/json',
-                        Authorization: authorization
-                    },
                     success: function(res) {
                         if (res.statusCode === 200) {
                             wx.showToast({

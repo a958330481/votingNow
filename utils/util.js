@@ -23,7 +23,15 @@ const baseUrl = 'https://www.minivote.cn'
 const app = getApp()
 
 const request = (object) => {
-    let token, _success = object.success
+    let token, authorization, _header, _success = object.success
+
+    authorization = wx.getStorageSync('authorization');
+
+    _header = {
+        'accept': 'application/json',
+        Authorization: authorization
+    }
+    object.header = object.header || _header
 
     object.success = res => {
         token = res.header.authorization

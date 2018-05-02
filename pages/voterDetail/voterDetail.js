@@ -7,7 +7,6 @@ Page({
     },
     onLoad: function(option) {
         let self = this;
-        let authorization = wx.getStorageSync('authorization');
         let voteId;
         if (option) {
             voteId = option.voteId
@@ -22,11 +21,6 @@ Page({
         util.request({
             url: util.baseUrl + '/api/votes/' + voteId + '/voters',
             method: 'GET',
-            header: {
-                'content-type': 'application/json',
-                'accept': 'application/json',
-                Authorization: authorization
-            },
             success: function(res) {
                 if (res.statusCode === 200) {
                     self.setData({

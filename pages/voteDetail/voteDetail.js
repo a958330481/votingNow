@@ -17,7 +17,6 @@ Page({
     },
     onLoad: function(option) {
         let self = this;
-        let authorization = wx.getStorageSync('authorization');
         let voteId, shareFrom, nickname;
         if (option) {
             voteId = option.voteId
@@ -38,10 +37,6 @@ Page({
         util.request({
             url: util.baseUrl + '/api/votes/' + voteId,
             method: 'GET',
-            header: {
-                'accept': 'application/json',
-                Authorization: authorization
-            },
             success: function(res) {
                 let finalVoteImgs = [];
                 if (res.data.data.images.length > 0) {
@@ -94,17 +89,12 @@ Page({
     onVote: function(e) {
         let self = this;
         let voteId = e.currentTarget.dataset.id;
-        let authorization = wx.getStorageSync('authorization');
         wx.showLoading({
             title: '正在处理，请稍后',
         });
         util.request({
             url: util.baseUrl + '/api/options/' + voteId + '/vote',
             method: 'POST',
-            header: {
-                'accept': 'application/json',
-                Authorization: authorization
-            },
             success: function(res) {
                 if (res.statusCode === 200) {
                     self.data.voterCount++;
@@ -128,15 +118,9 @@ Page({
     },
     getVoterList: function(voteId) {
         let self = this;
-        let authorization = wx.getStorageSync('authorization');
         util.request({
             url: util.baseUrl + '/api/votes/' + voteId + '/voters',
             method: 'GET',
-            header: {
-                'content-type': 'application/json',
-                'accept': 'application/json',
-                Authorization: authorization
-            },
             success: function(res) {
                 if (res.statusCode === 200) {
                     self.setData({
