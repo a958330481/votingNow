@@ -49,7 +49,8 @@
     </view>
   </view>
   <view class="vote-add-item">
-    <button class="publish-btn" type="primary" bindtap="publishNewVote">发布</button>
+    <button wx:if="{{saveBtnState===true}}" class="publish-btn" type="primary" bindtap="publishNewVote">发布</button>
+    <button wx:else class="publish-btn"  loading="true" type="primary">正在发布</button>
   </view>
   <!--弹窗 begin-->
   <view class="vote-item-add-mask"  wx:if="{{addNewVoteState}}">

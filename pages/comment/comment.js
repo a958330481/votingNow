@@ -18,6 +18,7 @@ Page({
         desTextareaDataLen: 0,
         voteImgs: [],
         voteImgPaths: [],
+        saveBtnState: true,
         voteTypes: [
             { name: 'F', value: '公开', checked: true },
             { name: 'T', value: '私密' }
@@ -164,10 +165,10 @@ Page({
                 wx.showLoading({
                     title: '图片正在上传',
                 });
-                util.request({  // 防止 token 过期
+                util.request({ // 防止 token 过期
                     url: util.baseUrl + '/api/me',
                     method: 'GET',
-                    success: function (res) {
+                    success: function(res) {
                         self.data.userAuthorization = wx.getStorageSync('authorization');
 
                         wx.uploadFile({
@@ -293,6 +294,7 @@ Page({
         let desTextareaData = self.data.desTextareaData;
         let newVotes = self.data.newVotes;
         let createTime = util.formatTime(new Date());
+        console.log(66666)
         if (newVoteTitle == "") {
             wx.showToast({
                 title: '请输入【投票标题】后再提交',
@@ -316,46 +318,40 @@ Page({
             })
             return;
         }
-        wx.setStorage({
-            key: "newVoteInfo",
+        self.setData({
+            saveBtnState: false
+        });
+        util.request({
+            url: util.baseUrl + '/api/votes',
             data: {
-                'newVoteTitle': newVoteTitle,
-                'voteTypeChoosed': voteTypeChoosed,
-                'desTextareaData': desTextareaData,
-                'newVotes': newVotes,
-                'createTime': createTime
+                title: newVoteTitle,
+                is_private: voteTypeChoosed,
+                content: desTextareaData,
+                options: newVotes,
+                images: self.data.voteImgPaths
             },
-            success: function() {
-                util.request({
-                    url: util.baseUrl + '/api/votes',
-                    data: {
-                        title: newVoteTitle,
-                        is_private: voteTypeChoosed,
-                        content: desTextareaData,
-                        options: newVotes,
-                        images: self.data.voteImgPaths
-                    },
-                    method: 'POST',
-                    success: function(res) {
-                        if (res.statusCode === 200) {
-                            wx.showToast({
-                                title: '发布成功',
-                                icon: 'success',
-                                duration: 1500,
-                                mask: true
-                            })
-                            if (self.data.voteTypeChoosed === 'T') {
-                                wx.navigateTo({
-                                    url: '../index/index?funType=mine'
-                                })
-                            } else {
-                                wx.navigateTo({
-                                    url: '../index/index?funType=all'
-                                })
-                            }
-                        }
+            method: 'POST',
+            success: function(res) {
+                if (res.statusCode === 200) {
+                    self.setData({
+                        saveBtnState: true
+                    })
+                    wx.showToast({
+                        title: '发布成功',
+                        icon: 'success',
+                        duration: 1500,
+                        mask: true
+                    })
+                    if (self.data.voteTypeChoosed === 'T') {
+                        wx.navigateTo({
+                            url: '../index/index?funType=mine'
+                        })
+                    } else {
+                        wx.navigateTo({
+                            url: '../index/index?funType=all'
+                        })
                     }
-                })
+                }
             }
         })
     }

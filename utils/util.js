@@ -48,7 +48,7 @@ const request = (object) => {
         token = res.header.authorization
         token && wx.setStorageSync('authorization', token)
 
-        if (res.header.status == 401) {
+        if (res.header.status == 401 || res.header.status == 400) {
             wx.showModal({
                 content: '登录信息已过期，请重新授权',
                 showCancel: false,

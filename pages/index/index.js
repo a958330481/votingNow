@@ -11,7 +11,8 @@ Page({
         bottomLineState: false,
         votedColor: ['#9dc8c8', '#58c9b9', '#519d9e', '#d1b6e1'],
         filterName: 'all',
-        delOpState: false
+        delOpState: false,
+        pullDownState: true
     },
     onLoad: function(option) {
         let self = this;
@@ -38,8 +39,10 @@ Page({
         let self = this;
         let filterName = self.data.filterName;
         authorization = wx.getStorageSync('authorization');
-        wx.showNavigationBarLoading()
-        self.getVoteList('refresh', 1, filterName);
+        wx.showNavigationBarLoading();
+        if (self.data.pullDownState) {
+            self.getVoteList('refresh', 1, filterName);
+        }
     },
     onReachBottom: function() {
         let self = this;
@@ -120,13 +123,12 @@ Page({
                 title: '加载中',
             })
         }, 400);
+        self.setData({
+            pullDownState: false
+        });
         util.request({
             url: util.baseUrl + '/api/votes',
             method: 'GET',
-            header: {
-                'accept': 'application/json',
-                Authorization: authorization
-            },
             data: {
                 page: pageNum,
                 filter: filterName
@@ -137,7 +139,8 @@ Page({
                 if (res.statusCode === 200) {
                     self.setData({
                         totalPageNum: res.data.meta.last_page,
-                        votes: res.data.data
+                        votes: res.data.data,
+                        pullDownState: true
                     });
                     if (type === "loadMore") {
                         totalVotes = totalVotes.concat(res.data.data)
@@ -146,7 +149,7 @@ Page({
                         })
                     } else if (type === "refresh") {
                         wx.showToast({
-                            title: '刷新成功',
+                            title: '刷新成功233',
                             icon: 'success',
                             duration: 1200,
                             mask: true
