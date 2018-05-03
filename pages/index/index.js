@@ -149,7 +149,7 @@ Page({
                         })
                     } else if (type === "refresh") {
                         wx.showToast({
-                            title: '刷新成功233',
+                            title: '刷新成功',
                             icon: 'success',
                             duration: 1200,
                             mask: true
