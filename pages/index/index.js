@@ -237,6 +237,11 @@ Page({
                         success: function(res) {
                             if (res.statusCode === 200) {
                                 self.data.votes.splice(voteIndex, 1)
+                                if (self.data.votes.length === 0) {
+                                    self.setData({
+                                        bottomLineState: false
+                                    })
+                                }
                                 self.setData({
                                     votes: self.data.votes,
                                     delOpState: false
