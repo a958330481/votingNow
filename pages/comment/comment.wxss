@@ -59,6 +59,7 @@
     width: 80%;
     min-height: 240rpx;
     padding: 12rpx;
+    color: #8a8a8a;
     border: 2rpx solid #e1e8f6;
     border-radius: 8rpx;
     word-break: break-all;

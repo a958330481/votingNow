@@ -1,5 +1,5 @@
 <!--comment.wxml-->
-<view class="vote-add" scroll-y="true">
+<view class="vote-add" scroll-y="{{addNewVoteState}}">
   <view class="vote-add-item clearfix">
     <label class="label-for-input">投票标题</label>
     <input class="bottom-line" type="text" placeholder="请输入投票标题,至少3个字" maxlength="140" bindinput="bindTitleInput"  confirm-type="done" value="{{newVoteTitle}}"/>
@@ -15,7 +15,10 @@
   <view class="vote-add-item clearfix">
     <label>投票描述</label>
     <textarea wx:if="{{!desTextareaState}}" class="fl vote-add-item-data" bindinput="bindDesTextAreaInput" maxlength="120" auto-height placeholder="补充描述（选填，不超过120字）" value="{{desTextareaData}}" />
-    <view class="fl peso-des-textarea" wx:elif="{{desTextareaState}}">{{desTextareaData}}</view>
+    <view class="fl peso-des-textarea" wx:elif="{{desTextareaState}}">
+      <text wx:if="desTextareaDataLen>0">{{desTextareaData}}</text>
+      <text wx:if="desTextareaDataLen===0">补充描述（选填，不超过120字）</text>
+    </view>
     <view wx:if="{{desTextareaDataLen>0}}" class="fr vote-add-item-data des-textarea-tip"><text class="{{desTextareaDataLen===120?'color-warn':''}}">{{desTextareaDataLen}}/120</text></view>
   </view>
   <view class="vote-add-item vote-add-item-imgs clearfix">
@@ -53,9 +56,9 @@
     <button wx:else class="publish-btn"  loading="true" type="primary">正在发布</button>
   </view>
   <!--弹窗 begin-->
-  <view class="vote-item-add-mask"  wx:if="{{addNewVoteState}}">
+  <view class="vote-item-add-mask" catchtouchmove="true"  wx:if="{{addNewVoteState}}">
     <view class="vote-item-add clearfix {{textareaFocusFlag ?'vote-item-add-active':''}}">
-      <textarea class="vote-add-item-data" bindfocus="bindTextAreaFocus" bindblur="bindTextAreablur"  bindinput="bindTextAreaInput"  auto-height maxlength="20" placeholder="请填写选项内容,内容不要超过20字" value="{{newVoteContent}}" />
+      <textarea catchtouchmove="true" class="vote-add-item-data" auto-focus="{{addNewVoteState}}" bindfocus="bindTextAreaFocus" bindblur="bindTextAreablur"  bindinput="bindTextAreaInput"  auto-height maxlength="20" placeholder="请填写选项内容,内容不要超过20字" value="{{newVoteContent}}" />
       <view class="clearfix">
         <text class="{{newVoteWordsState?'color-warn':''}}">{{newVoteWords}}/20</text>
       </view>

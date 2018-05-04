@@ -89,9 +89,12 @@ Page({
     onVote: function(e) {
         let self = this;
         let voteId = e.currentTarget.dataset.id;
-        wx.showLoading({
-            title: '正在处理，请稍后',
-        });
+        wx.showToast({
+            title: '处理中，请稍后...',
+            icon: 'none',
+            duration: 1500,
+            mask: true
+        })
         util.request({
             url: util.baseUrl + '/api/options/' + voteId + '/vote',
             method: 'POST',
@@ -104,6 +107,7 @@ Page({
                     });
                     //获取投票头像列表
                     self.getVoterList(self.data.voteId);
+                    wx.hideToast()
                 }
             },
             fail: function() {

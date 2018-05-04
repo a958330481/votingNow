@@ -12,7 +12,8 @@ Page({
         votedColor: ['#9dc8c8', '#58c9b9', '#519d9e', '#d1b6e1'],
         filterName: 'all',
         delOpState: false,
-        pullDownState: true
+        pullDownState: true,
+        voteState: true
     },
     onLoad: function(option) {
         let self = this;
@@ -56,15 +57,16 @@ Page({
             self.getVoteList('loadMore', self.data.currentPage, filterName);
         } else {
             self.setData({
-                currentPage: self.data.totalPageNum,
-                bottomLineState: true
-            })
-            wx.showToast({
-                title: '全部数据已加载，已无更多内容',
-                icon: 'none',
-                duration: 1500,
-                mask: true
-            })
+                    currentPage: self.data.totalPageNum,
+                    bottomLineState: true
+                })
+                /*
+                wx.showToast({
+                    title: '全部数据已加载，已无更多内容',
+                    icon: 'none',
+                    duration: 1500,
+                    mask: true
+                })*/
             return
         }
     },
@@ -178,28 +180,48 @@ Page({
         let voteId = e.currentTarget.dataset.src;
         let voteIndex = e.currentTarget.dataset.vindex;
         let index = e.currentTarget.dataset.index;
-        util.request({
-            url: util.baseUrl + '/api/options/' + voteId + '/vote',
-            method: 'POST',
-            success: function(res) {
-                if (res.statusCode === 200) {
-                    self.data.votes[voteIndex].result = res.data
-                    self.data.votes[voteIndex].data.voters_count++;
-                    self.data.votes[voteIndex].data.options[index].vote_count++;
-                    self.setData({
-                        votes: self.data.votes
+        if (self.data.voteState) {
+            self.setData({
+                voteState: false
+            })
+            wx.showToast({
+                title: '处理中，请稍后...',
+                icon: 'none',
+                duration: 1500,
+                mask: true
+            })
+            util.request({
+                url: util.baseUrl + '/api/options/' + voteId + '/vote',
+                method: 'POST',
+                success: function(res) {
+                    if (res.statusCode === 200) {
+                        self.data.votes[voteIndex].result = res.data
+                        self.data.votes[voteIndex].data.voters_count++;
+                        self.data.votes[voteIndex].data.options[index].vote_count++;
+                        self.setData({
+                            votes: self.data.votes,
+                            voteState: true
+                        })
+                        wx.hideToast()
+                    }
+                },
+                fail: function() {
+                    wx.showToast({
+                        title: '投票失败，请稍后再试',
+                        icon: 'none',
+                        duration: 1500,
+                        mask: true
                     })
                 }
-            },
-            fail: function() {
-                wx.showToast({
-                    title: '投票失败，请稍后再试',
-                    icon: 'none',
-                    duration: 1500,
-                    mask: true
-                })
-            }
-        })
+            })
+        } else {
+            wx.showToast({
+                title: '您已投票，无需再投',
+                icon: 'none',
+                duration: 1500,
+                mask: true
+            })
+        }
     },
     getVoteListByType: function(e) {
         let self = this;
