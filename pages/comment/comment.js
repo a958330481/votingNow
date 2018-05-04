@@ -343,11 +343,11 @@ Page({
                         mask: true
                     })
                     if (self.data.voteTypeChoosed === 'T') {
-                        wx.navigateTo({
+                        wx.reLaunch({
                             url: '../index/index?funType=mine'
                         })
                     } else {
-                        wx.navigateTo({
+                        wx.reLaunch({
                             url: '../index/index?funType=all'
                         })
                     }
