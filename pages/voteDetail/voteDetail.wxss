@@ -109,6 +109,7 @@ page {
 .voter-img-list {
     display: -webkit-flex;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .no-data-tip {
