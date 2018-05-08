@@ -77,12 +77,13 @@ page {
     margin-top: 14rpx;
     margin-bottom: 8rpx;
     padding: 0 28rpx;
-    font-size: 30rpx;
+    font-size: 32rpx;
     color: #515151;
 }
 
 .vote-des-content {
     padding: 0 28rpx;
+    font-size: 28rpx;
 }
 
 .vote-item-data {
