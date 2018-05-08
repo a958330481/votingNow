@@ -1,6 +1,14 @@
 # votingNow
 投票小程序项目代码
 
+## 2018/05/08  阳光投票小程序发布
+
+![阳光投票二维码](https://www.minivote.cn/storage/images/miniprogram.jpeg)
+
+
+
+
+
 ## 2018/4/27 修改日志
 
 ### 解决以下问题：
