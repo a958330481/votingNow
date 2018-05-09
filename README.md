@@ -2,7 +2,7 @@
 
 投票小程序项目代码
 
-## 2018/5/8 小程序已发布
+## 2018/5/8 小程序已发布，欢迎大家使用
 
 ![阳光投票二维码](https://www.minivote.cn/storage/images/miniprogram2.jpeg)
 

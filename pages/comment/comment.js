@@ -344,11 +344,11 @@ Page({
                     })
                     if (self.data.voteTypeChoosed === 'T') {
                         wx.reLaunch({
-                            url: '../index/index?funType=mine'
+                            url: '/pages/index/index?funType=mine'
                         })
                     } else {
                         wx.reLaunch({
-                            url: '../index/index?funType=all'
+                            url: '/pages/index/index?funType=all'
                         })
                     }
                 }

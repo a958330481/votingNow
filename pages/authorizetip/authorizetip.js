@@ -16,7 +16,7 @@ Page({
                         });
                         //尝试再次登录
                         wx.navigateTo({
-                            url: '../index/index'
+                            url: '/pages/index/index'
                         })
                         app.userAuthCb();
                     } else {
