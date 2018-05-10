@@ -6,6 +6,10 @@
 
 ![阳光投票二维码](https://www.minivote.cn/storage/images/miniprogram2.jpeg)
 
+### 2018/5/10 修改日志
+
+1：添加默认头像
+
 ### 2018/4/27 修改日志
 
 #### 解决以下问题：

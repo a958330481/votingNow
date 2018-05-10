@@ -148,7 +148,7 @@ Page({
     },
     targetToIndex: function() {
         wx.navigateTo({
-            url: '../index/index',
+            url: '/pages/index/index',
             success: function(res) {
                 console.log(res)
             }

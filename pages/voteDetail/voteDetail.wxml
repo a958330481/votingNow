@@ -54,7 +54,8 @@
           <view class="voter-title bottom-line">选项{{voteIndex+1}}：{{voteItem.title}}</view>
           <view class="voter-img-list" wx:if="{{voteItem.voters.length>0}}">
             <view wx:for="{{voteItem.voters}}" wx:key="{{index}}">
-                <image src="{{item}}" mode="aspectFill"></image>
+                <image wx:if="{{item}}" src="{{item}}" mode="aspectFill"></image>
+                <image wx:elif="{{item == ''}}" src="/images/defalut.png" mode="aspectFill"></image>
             </view>
           </view>
           <view class="voter-img-list no-data-tip" wx:else>
