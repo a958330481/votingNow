@@ -67,6 +67,7 @@ App({
                                         let authorizationValue = res.data.access_token;
                                         let currentPagesLen = getCurrentPages().length;
                                         if (authorizationValue) {
+                                            wx.setStorageSync('access_token', authorizationValue);
                                             wx.setStorageSync('authorization', "Bearer " + authorizationValue);
                                             that.globalData.userAuthorization = "Bearer " + authorizationValue;
                                             //判断是否有页面优先生成，如果生成则重新加载一次
