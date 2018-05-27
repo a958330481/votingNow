@@ -17,9 +17,7 @@ const numberToFixed = n => {
     n = n.toFixed(2) * 100 + '%'
     return n
 }
-
-const baseUrl = 'https://www.minivote.cn'
-
+const baseUrl = '**************'
 const app = getApp()
 
 const request = (object) => {
@@ -56,9 +54,12 @@ const request = (object) => {
             wx.showModal({
                 content: '登录信息已过期，请重新授权',
                 showCancel: false,
+                confirmColor: '#7087f4',
                 success: function(res) {
                     if (res.confirm) {
-                        app.getUserInfo()
+                        wx.redirectTo({
+                            url: '/pages/authorizetip/authorizetip',
+                        })
                     }
                 }
             })

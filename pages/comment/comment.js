@@ -294,7 +294,6 @@ Page({
         let desTextareaData = self.data.desTextareaData;
         let newVotes = self.data.newVotes;
         let createTime = util.formatTime(new Date());
-        console.log(66666)
         if (newVoteTitle == "") {
             wx.showToast({
                 title: '请输入【投票标题】后再提交',
@@ -332,6 +331,17 @@ Page({
             },
             method: 'POST',
             success: function(res) {
+                if (res.statusCode === 422) {
+                    self.setData({
+                        saveBtnState: true
+                    });
+                    wx.showModal({
+                        content: '投票内容包含敏感信息;请先修改再发布',
+                        showCancel: false,
+                        confirmColor: '#7087f4'
+                    });
+                    return;
+                }
                 if (res.statusCode === 200) {
                     self.setData({
                         saveBtnState: true

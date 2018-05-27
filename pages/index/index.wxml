@@ -1,84 +1,84 @@
 <!--index.wxml-->
 <wxs module="filter" src="../../utils/numbertofix.wxs"></wxs>
 <view class="view-container">
- <view class="votes-list-tab">
-    <view class="tab {{filterName==='all'?'active':''}}" data-src="all" bindtap="getVoteListByType" hover-class="vote-item-data-active">全部</view>
-    <view class="tab {{filterName==='popular'?'active':''}}" data-src="popular" bindtap="getVoteListByType" hover-class="vote-item-data-active">最热</view>
-    <view class="tab {{filterName==='mine'?'active':''}}" data-src="mine" bindtap="getVoteListByType"  hover-class="vote-item-data-active">我的</view>
- </view>
- <view class="votes-list">
-     <view class="no-vote-tip" wx:if="{{votes.length===0 && filterName==='mine'}}">
-        <view class="tips-icon tips-icon-res"></view>
-        <button type="primary" hover-class="none"  bindtap="targetToAdd">创建投票</button>
+    <view class="votes-list-tab">
+        <view class="tab {{filterName==='all'?'active':''}}" data-src="all" bindtap="getVoteListByType" hover-class="vote-item-data-active">全部</view>
+        <view class="tab {{filterName==='popular'?'active':''}}" data-src="popular" bindtap="getVoteListByType" hover-class="vote-item-data-active">最热</view>
+        <view class="tab {{filterName==='mine'?'active':''}}" data-src="mine" bindtap="getVoteListByType" hover-class="vote-item-data-active">我的</view>
     </view>
-    <!--list begin-->
-    <view class="vote-item" wx:if="{{votes.length>0}}" wx:for="{{votes}}" wx:key="voteIndex" wx:for-item="vote" wx:for-index="voteIndex">
-        <view class="vote-item-hd bottom-line">
-            <image src="{{vote.data.user.avatar_url}}" mode="aspectFill"></image>
-            <view class="vote-item-hd-info">
-                <view class="nickname">{{vote.data.user.nick_name}}</view>
-                <view>{{vote.time_for_humans}}</view>
+    <view class="votes-list">
+        <view class="no-vote-tip" wx:if="{{votes.length===0 && filterName==='mine'}}">
+            <view class="tips-icon tips-icon-res"></view>
+            <button type="primary" hover-class="none" bindtap="targetToAdd">创建投票</button>
+        </view>
+        <!--list begin-->
+        <view class="vote-item" wx:if="{{votes.length>0}}" wx:for="{{votes}}" wx:key="voteIndex" wx:for-item="vote" wx:for-index="voteIndex">
+            <view class="vote-item-hd bottom-line">
+                <image src="{{vote.data.user.avatar_url}}" lazy-load="true" mode="aspectFill"></image>
+                <view class="vote-item-hd-info">
+                    <view class="nickname">{{vote.data.user.nick_name}}</view>
+                    <view>{{vote.time_for_humans}}</view>
+                </view>
+                <view class="vote-item-hd-op {{delOpState?'vote-item-hd-op-hover':''}}" wx:if="{{filterName==='mine'}}" data-index="{{voteIndex}}" data-voteid="{{vote.data.id}}" bindtap="voteOP">
+                    <i class="fa fa-circle"></i>
+                    <i class="fa fa-circle"></i>
+                    <i class="fa fa-circle"></i>
+                </view>
             </view>
-            <view class="vote-item-hd-op {{delOpState?'vote-item-hd-op-hover':''}}"  wx:if="{{filterName==='mine'}}" data-index="{{voteIndex}}" data-voteid="{{vote.data.id}}"  bindtap="voteOP">
-                <i class="fa fa-circle"></i>
-                <i class="fa fa-circle"></i>
-                <i class="fa fa-circle"></i>
+            <view class="vote-item-con">
+                <view class="vote-item-con-hd bottom-line">
+                    <!--配图 begin-->
+                    <view class="vote-imgs {{vote.data.images.length>=3?'vote-imgs-more':''}}" wx:if="{{vote.data.images.length>0}}">
+                        <view wx:if="{{vote.data.images.length<3}}" wx:for="{{vote.data.images}}" wx:key="{{index}}" class="vote-img-box">
+                            <image data-src="{{filter.delWithPath(item.path)}}" lazy-load="true" data-images="{{vote.data.images}}" src="{{filter.delWithPath(item.path)}}" mode="aspectFill" bindtap="bindPreviewImage"></image>
+                        </view>
+                        <view wx:if="{{vote.data.images.length>=3}}">
+                            <swiper indicator-dots="true" indicator-color="#58c9b9" indicator-active-color="#d1b6e1">
+                                <block wx:for="{{vote.data.images}}" wx:key="{{index}}">
+                                    <swiper-item>
+                                        <image src="{{filter.delWithPath(item.path)}}" lazy-load="true" data-src="{{filter.delWithPath(item.path)}}" data-images="{{vote.data.images}}" class="slide-image" width="100%" height="auto" mode="aspectFill" bindtap="bindPreviewImage"></image>
+                                    </swiper-item>
+                                </block>
+                            </swiper>
+                        </view>
+                    </view>
+                    <!--配图 end-->
+                    <view class="vote-title">{{vote.data.title}}</view>
+                    <view class="vote-des-content" wx:if="{{vote.data.content}}">{{vote.data.content}}</view>
+                </view>
+                <view wx:if="{{vote.result}}">
+                    <!--当前用户已投票 begin-->
+                    <view wx:for="{{vote.data.options}}" wx:key="{{item.id}}">
+                        <view class="vote-item-data vote-item-data-voted" data-src="{{item.id}}">
+                            {{item.title}}
+                            <text class="vote-item-data-percent">{{filter.numberToFix(item.vote_count/vote.data.voters_count*100)}}%</text>
+                            <view class="progress-state" style="width:{{filter.numberToFix(item.vote_count/vote.data.voters_count*100)}}%;background-color:{{votedColor[index]}};"></view>
+                        </view>
+                    </view>
+                    <!--当前用户已投票 end-->
+                </view>
+                <view wx:else>
+                    <!--当前用户未投票 begin-->
+                    <view wx:for="{{vote.data.options}}" wx:key="{{item.id}}">
+                        <view wx:if="{{index === vote.data.options.length-1}}" bindtap="onVote" data-index="{{index}}" data-vindex="{{voteIndex}}" data-src="{{item.id}}" class="vote-item-data" hover-class="vote-item-data-active">
+                            {{item.title}}
+                        </view>
+                        <view wx:else class="vote-item-data bottom-line" bindtap="onVote" data-index="{{index}}" data-vindex="{{voteIndex}}" data-src="{{item.id}}" hover-class="vote-item-data-active">
+                            {{item.title}}
+                        </view>
+                    </view>
+                    <!--当前用户未投票 end-->
+                </view>
+            </view>
+            <view class="vote-item-ft top-line">
+                <i class="fa fa-align-left" bindtap="targetToVoteDetail" data-src="{{vote.data.id}}"><text> {{vote.data.voters_count}}</text></i>
+                <button open-type="share" plain="true" data-voteid="{{vote.data.id}}" data-nickname="{{vote.data.user.nick_name}}" bindtap="onShareAppMessage"><i class="fa fa-share-square-o"></i></button>
             </view>
         </view>
-        <view class="vote-item-con">
-            <view class="vote-item-con-hd bottom-line">
-                <!--配图 begin-->
-                <view class="vote-imgs {{vote.data.images.length>=3?'vote-imgs-more':''}}" wx:if="{{vote.data.images.length>0}}">
-                    <view wx:if="{{vote.data.images.length<3}}" wx:for="{{vote.data.images}}" wx:key="{{index}}" class="vote-img-box">
-                        <image data-src="{{filter.delWithPath(item.path)}}" data-images="{{vote.data.images}}" src="{{filter.delWithPath(item.path)}}"  mode="aspectFill" bindtap="bindPreviewImage"></image>
-                    </view>
-                    <view wx:if="{{vote.data.images.length>=3}}">
-                    <swiper indicator-dots="true" indicator-color="#58c9b9" indicator-active-color="#d1b6e1">
-                        <block wx:for="{{vote.data.images}}" wx:key="{{index}}">
-                            <swiper-item>
-                            <image src="{{filter.delWithPath(item.path)}}" data-src="{{filter.delWithPath(item.path)}}"  data-images="{{vote.data.images}}" class="slide-image" width="100%" height="auto" mode="aspectFill" bindtap="bindPreviewImage"></image>
-                            </swiper-item>
-                        </block>
-                    </swiper>
-                    </view>
-                </view>
-                <!--配图 end-->
-                <view class="vote-title">{{vote.data.title}}</view>
-                <view class="vote-des-content" wx:if="{{vote.data.content}}">{{vote.data.content}}</view>
-            </view>
-            <view wx:if="{{vote.result}}">
-                <!--当前用户已投票 begin-->
-                <view wx:for="{{vote.data.options}}" wx:key="{{item.id}}">
-                    <view class="vote-item-data vote-item-data-voted" data-src="{{item.id}}">
-                        {{item.title}}
-                        <text class="vote-item-data-percent">{{filter.numberToFix(item.vote_count/vote.data.voters_count*100)}}%</text>
-                        <view class="progress-state" style="width:{{filter.numberToFix(item.vote_count/vote.data.voters_count*100)}}%;background-color:{{votedColor[index]}};"></view>
-                    </view>
-                </view>
-                <!--当前用户已投票 end-->
-            </view>
-            <view wx:else>
-                <!--当前用户未投票 begin-->
-                <view wx:for="{{vote.data.options}}" wx:key="{{item.id}}">
-                    <view wx:if="{{index === vote.data.options.length-1}}" bindtap="onVote" data-index="{{index}}" data-vindex="{{voteIndex}}" data-src="{{item.id}}" class="vote-item-data" hover-class="vote-item-data-active">
-                        {{item.title}}
-                    </view>
-                    <view wx:else class="vote-item-data bottom-line" bindtap="onVote" data-index="{{index}}" data-vindex="{{voteIndex}}" data-src="{{item.id}}"  hover-class="vote-item-data-active">
-                        {{item.title}}
-                    </view>
-                </view>
-                <!--当前用户未投票 end-->
-            </view>
-        </view>
-        <view class="vote-item-ft top-line">
-            <i class="fa fa-align-left"  bindtap="targetToVoteDetail" data-src="{{vote.data.id}}"><text> {{vote.data.voters_count}}</text></i>
-            <button open-type="share" plain="true" data-voteid="{{vote.data.id}}" data-nickname="{{vote.data.user.nick_name}}" bindtap="onShareAppMessage"><i class="fa fa-share-square-o"></i></button>
-        </view>
+        <!--list end-->
+        <view class="no-more-tip" wx:if="{{bottomLineState}}">这是底部，已无更多内容</view>
     </view>
-    <!--list end-->
-    <view class="no-more-tip" wx:if="{{bottomLineState}}">这是底部，已无更多内容</view>
- </view>
- <view wx:if="{{votes.length>0}}" class="vote-add-btn" hover-class="vote-item-data-active" bindtap="targetToAdd">
-    <i class="fa fa-plus-circle"></i>创建投票
- </view>
+    <view wx:if="{{votes.length>0}}" class="vote-add-btn" hover-class="vote-item-data-active" bindtap="targetToAdd">
+        <i class="fa fa-plus-circle"></i>创建投票
+    </view>
 </view>
