@@ -6,6 +6,20 @@
 
 ![阳光投票二维码](https://www.minivote.cn/storage/images/miniprogram2.jpeg)
 
+### 2018/5/29 修改日志
+
+1.修改用户授权逻辑；
+2.优化用户体验：比如：在投票投票详情页进行投票，返回首页列表时不刷新页面即可看到结果;
+3.页面跳转逻辑优化
+
+
+### 2018/5/27 修改日志
+
+1.修改用户授权逻辑；
+2.添加敏感词过滤功能（https://developers.weixin.qq.com/miniprogram/dev/api/imgSecCheck.html）；
+3.图片改用懒加载
+
+
 ### 2018/5/10 修改日志
 
 1：添加默认头像
