@@ -17,7 +17,9 @@ const numberToFixed = n => {
     n = n.toFixed(2) * 100 + '%'
     return n
 }
+
 const baseUrl = '**************'
+
 const app = getApp()
 
 const request = (object) => {
@@ -57,9 +59,7 @@ const request = (object) => {
                 confirmColor: '#7087f4',
                 success: function(res) {
                     if (res.confirm) {
-                        wx.redirectTo({
-                            url: '/pages/authorizetip/authorizetip',
-                        })
+                        app.getUserInfo()
                     }
                 }
             })

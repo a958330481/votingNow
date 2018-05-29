@@ -34,7 +34,23 @@ Page({
     onShow: function() {
         let self = this;
         let type = self.data.filterName || 'all';
-        self.getVoteList('', 1, type);
+        //同步投票结果
+        let targetIndex = wx.getStorageSync('voteIndex');
+        let targetResult = wx.getStorageSync('voteResult');
+        let optionIndex = wx.getStorageSync('optionIndex') === "" ? -1 : wx.getStorageSync('optionIndex');
+        if (targetIndex && optionIndex >= 0) {
+            self.data.votes[targetIndex].data.voters_count++;
+            self.data.votes[targetIndex].result = targetResult;
+            self.data.votes[targetIndex].data.options[optionIndex].vote_count++;
+            self.setData({
+                votes: self.data.votes
+            }, function() {
+                //清除缓存信息
+                wx.removeStorageSync('voteIndex');
+                wx.removeStorageSync('voteResult');
+                wx.removeStorageSync('optionIndex');
+            });
+        }
     },
     onPullDownRefresh: function() {
         let self = this;
@@ -80,6 +96,9 @@ Page({
     },
     targetToVoteDetail: function(e) {
         let voteId = e.currentTarget.dataset.src;
+        let curIndex = e.currentTarget.dataset.index;
+        console.log(curIndex)
+        wx.setStorageSync('voteIndex', curIndex)
         wx.navigateTo({
             url: '/pages/voteDetail/voteDetail?shareFrom=index&nickname&voteId=' + voteId,
             success: function(res) {

@@ -56,7 +56,7 @@ Page({
                     if (res.data.result) {
                         self.setData({
                             voteResult: res.data.result,
-                        })
+                        });
                     }
                     //获取投票头像列表
                     self.getVoterList(self.data.voteId);
@@ -89,6 +89,8 @@ Page({
     onVote: function(e) {
         let self = this;
         let voteId = e.currentTarget.dataset.id;
+        let optionIndex = e.currentTarget.dataset.index;
+        console.log(optionIndex);
         wx.showToast({
             title: '处理中，请稍后...',
             icon: 'none',
@@ -104,6 +106,16 @@ Page({
                     self.setData({
                         voteResult: res.data.data,
                         voterCount: self.data.voterCount
+                    });
+                    //投票结果缓存到本地
+                    console.log(res.data.data)
+                    wx.setStorage({
+                        key: 'optionIndex',
+                        data: optionIndex
+                    })
+                    wx.setStorage({
+                        key: 'voteResult',
+                        data: res.data.data
                     });
                     //获取投票头像列表
                     self.getVoterList(self.data.voteId);

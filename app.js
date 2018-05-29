@@ -53,7 +53,7 @@ App({
                             if (res.code) {
                                 //将用户基本信息回传给服务器，并获取assess_token
                                 wx.request({
-                                    url: '**************',
+                                    url: '** ** ** ** ** ** **',
                                     method: 'POST',
                                     data: {
                                         code: res.code,

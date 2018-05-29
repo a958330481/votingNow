@@ -247,6 +247,8 @@ page {
 .vote-imgs {
     display: -webkit-flex;
     display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 16rpx;
 }
 

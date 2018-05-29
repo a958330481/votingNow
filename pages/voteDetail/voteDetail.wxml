@@ -1,95 +1,74 @@
 <wxs module="filter" src="../../utils/numbertofix.wxs"></wxs>
 <view class="vote-detail">
-  <!--投票信息 begin-->
-  <view class="vote-detail-hd">
-  <!--配图 begin-->
-    <view class="vote-imgs {{voteImgs.length>=3?'vote-imgs-more':''}}" wx:if="{{voteImgs.length>0}}">
-        <view wx:if="{{voteImgs.length<3}}" wx:for="{{voteImgs}}" wx:key="{{index}}" class="vote-img-box">
-            <image data-src="{{item}}" data-images="{{voteImgs}}" src="{{item}}"  mode="aspectFill" bindtap="bindPreviewImage"></image>
-        </view>
-        <view wx:if="{{voteImgs.length>=3}}">
-        <swiper indicator-dots="true" indicator-color="#58c9b9" indicator-active-color="#d1b6e1" autoplay="true" interval="3000">
-            <block wx:for="{{voteImgs}}" wx:key="{{index}}">
-                <swiper-item>
-                <image src="{{item}}" data-src="{{item}}"  data-images="{{voteImgs}}" class="slide-image" width="100%" height="auto" mode="aspectFill" bindtap="bindPreviewImage"></image>
-                </swiper-item>
-            </block>
-        </swiper>
-        </view>
-    </view>
-  <!--配图 end-->
-  <view class="vote-detail-hd-info bottom-line">
-    <view class="vote-title">{{voteTitle}}</view>
-    <view class="vote-content color-707070" wx:if="{{voteContent}}">{{voteContent}}</view>
-    <view class="create-time color-8a8a8a"><i class="fa fa-clock-o"></i>{{createTime}}发布</view>
-  </view>
-  </view>
-  <!--投票信息 end-->
-  <view class="vote-detail-con">
-    <!--投票选项 已投票 begin-->
-    <view class="view-option-box"  wx:if="{{voteResult.length>0}}">
-      <view class="view-option-box-title">投票选项</view>
-      <view class="vote-option vote-option-voted" data-index="{{index}}" data-id="{{item.id}}" wx:for="{{voteResult}}" wx:key="{{index}}">
-          <text>{{item.title}}</text>
-          <text class="vote-option-percent">{{item.vote_count}}票</text>
-          <view class="vote-progress-state" style="width:{{filter.numberToFix(item.vote_count/voterCount*100)}}%;background-color:{{votedColor[index]}};"></view>
-      </view>
-    </view>
-    <!--投票选项 已投票 end-->
-    <!--投票选项 未投票 begin-->
-    <view class="view-option-box" wx:elif="{{voteResult.length===0}}">
-      <view class="view-option-box-title">投票选项</view>
-      <view wx:if="{{index+1<voteOptions.length}}" class="vote-option" data-id="{{item.id}}" bindtap="onVote" hover-class="vote-option-hover" wx:for="{{voteOptions}}" wx:key="{{index}}">
-        <text>{{item.title}}</text>
-      </view>
-      <view wx:if="{{index+1===voteOptions.length}}" class="vote-option" data-id="{{item.id}}" bindtap="onVote"  hover-class="vote-option-hover" wx:for="{{voteOptions}}" wx:key="{{index}}">
-        <text>{{item.title}}</text>
-      </view>
-    </view>
-    <!--投票选项 未投票 end-->
-    <!--投票结果 begin-->
-    <view class="voter-list" wx:if="{{voterDetails.length>0 && voteResult.length>0}}">
-     <view class="view-option-box-title">投票结果</view>
-      <view class="voter-item" wx:for="{{voterDetails}}" wx:key="{{index}}" wx:for-item="voteItem" wx:for-index="voteIndex">
-          <view class="voter-title bottom-line">选项{{voteIndex+1}}：{{voteItem.title}}</view>
-          <view class="voter-img-list" wx:if="{{voteItem.voters.length>0}}">
-            <view wx:for="{{voteItem.voters}}" wx:key="{{index}}">
-                <image wx:if="{{item}}" src="{{item}}" mode="aspectFill"></image>
-                <image wx:elif="{{item == ''}}" src="/images/defalut.png" mode="aspectFill"></image>
+    <!--投票信息 begin-->
+    <view class="vote-detail-hd">
+        <!--配图 begin-->
+        <view class="vote-imgs {{voteImgs.length>=3?'vote-imgs-more':''}}" wx:if="{{voteImgs.length>0}}">
+            <view wx:if="{{voteImgs.length<3}}" wx:for="{{voteImgs}}" wx:key="{{index}}" class="vote-img-box">
+                <image data-src="{{item}}" data-images="{{voteImgs}}" src="{{item}}" mode="aspectFill" bindtap="bindPreviewImage"></image>
             </view>
-          </view>
-          <view class="voter-img-list no-data-tip" wx:else>
-            暂无人投票
-          </view>
-      </view>
+            <view wx:if="{{voteImgs.length>=3}}">
+                <swiper indicator-dots="true" indicator-color="#58c9b9" indicator-active-color="#d1b6e1" autoplay="true" interval="3000">
+                    <block wx:for="{{voteImgs}}" wx:key="{{index}}">
+                        <swiper-item>
+                            <image src="{{item}}" data-src="{{item}}" data-images="{{voteImgs}}" class="slide-image" width="100%" height="auto" mode="aspectFill" bindtap="bindPreviewImage"></image>
+                        </swiper-item>
+                    </block>
+                </swiper>
+            </view>
+        </view>
+        <!--配图 end-->
+        <view class="vote-detail-hd-info bottom-line">
+            <view class="vote-title">{{voteTitle}}</view>
+            <view class="vote-content color-707070" wx:if="{{voteContent}}">{{voteContent}}</view>
+            <view class="create-time color-8a8a8a"><i class="fa fa-clock-o"></i>{{createTime}}发布</view>
+        </view>
     </view>
-    <!--投票结果 end-->
-  </view>
-  <view wx:if="{{shareFrom==='share'}}" class="vote-detail-ft" bindtap="targetToIndex" hover-class="vote-option-hover" >
-    <i class="fa fa-home"></i>去首页逛逛
-  </view>
-  <view wx:if="{{shareFrom === 'index'}}" class="vote-detail-ft" hover-class="vote-option-hover" >
-      <button open-type="share" plain="true"  bindtap="onShareAppMessage"><i class="fa fa-retweet"></i>分享给其他人</button>
-  </view>
-</view> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
+    <!--投票信息 end-->
+    <view class="vote-detail-con">
+        <!--投票选项 已投票 begin-->
+        <view class="view-option-box" wx:if="{{voteResult.length>0}}">
+            <view class="view-option-box-title">投票选项</view>
+            <view class="vote-option vote-option-voted" data-index="{{index}}" data-id="{{item.id}}" wx:for="{{voteResult}}" wx:key="{{index}}">
+                <text>{{item.title}}</text>
+                <text class="vote-option-percent">{{item.vote_count}}票</text>
+                <view class="vote-progress-state" style="width:{{filter.numberToFix(item.vote_count/voterCount*100)}}%;background-color:{{votedColor[index]}};"></view>
+            </view>
+        </view>
+        <!--投票选项 已投票 end-->
+        <!--投票选项 未投票 begin-->
+        <view class="view-option-box" wx:elif="{{voteResult.length===0}}">
+            <view class="view-option-box-title">投票选项</view>
+            <view wx:if="{{index+1<voteOptions.length}}" class="vote-option" data-id="{{item.id}}" bindtap="onVote" hover-class="vote-option-hover" wx:for="{{voteOptions}}" data-index="{{index}}" wx:key="{{index}}">
+                <text>{{item.title}}</text>
+            </view>
+            <view wx:if="{{index+1===voteOptions.length}}" class="vote-option" data-id="{{item.id}}" data-index="{{index}}" bindtap="onVote" hover-class="vote-option-hover" wx:for="{{voteOptions}}" wx:key="{{index}}">
+                <text>{{item.title}}</text>
+            </view>
+        </view>
+        <!--投票选项 未投票 end-->
+        <!--投票结果 begin-->
+        <view class="voter-list" wx:if="{{voterDetails.length>0 && voteResult.length>0}}">
+            <view class="view-option-box-title">投票结果</view>
+            <view class="voter-item" wx:for="{{voterDetails}}" wx:key="{{index}}" wx:for-item="voteItem" wx:for-index="voteIndex">
+                <view class="voter-title bottom-line">选项{{voteIndex+1}}：{{voteItem.title}}</view>
+                <view class="voter-img-list" wx:if="{{voteItem.voters.length>0}}">
+                    <view wx:for="{{voteItem.voters}}" wx:key="{{index}}">
+                        <image wx:if="{{item}}" src="{{item}}" mode="aspectFill"></image>
+                        <image wx:elif="{{item == ''}}" src="/images/defalut.png" mode="aspectFill"></image>
+                    </view>
+                </view>
+                <view class="voter-img-list no-data-tip" wx:else>
+                    暂无人投票
+                </view>
+            </view>
+        </view>
+        <!--投票结果 end-->
+    </view>
+    <view wx:if="{{shareFrom==='share'}}" class="vote-detail-ft" bindtap="targetToIndex" hover-class="vote-option-hover">
+        <i class="fa fa-home"></i>去首页逛逛
+    </view>
+    <view wx:if="{{shareFrom === 'index'}}" class="vote-detail-ft" hover-class="vote-option-hover">
+        <button open-type="share" plain="true" bindtap="onShareAppMessage"><i class="fa fa-share-square-o"></i>分享给其他人</button>
+    </view>
+</view>

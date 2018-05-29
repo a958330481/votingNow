@@ -20,7 +20,7 @@ Page({
                             mask: true
                         });
                         //尝试再次登录
-                        wx.navigateTo({
+                        wx.reLaunch({
                             url: '/pages/index/index'
                         })
                         app.userAuthCb();
