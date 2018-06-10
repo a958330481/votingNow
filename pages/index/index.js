@@ -1,11 +1,9 @@
 //index.js
 const util = require('../../utils/util.js')
-const app = getApp()
-    //用户授权方法调用：app.getUserInfo()
-let authorization = wx.getStorageSync('authorization');
+
 Page({
     data: {
-        votes: '',
+        votes: [],
         totalPageNum: 0,
         currentPage: 1,
         bottomLineState: false,
@@ -29,7 +27,8 @@ Page({
         } else {
             funType = self.data.filterName
         }
-        self.getVoteList('', 1, funType);
+
+        self.getVotes(funType);
     },
     onShow: function() {
         let self = this;
@@ -55,11 +54,11 @@ Page({
     onPullDownRefresh: function() {
         let self = this;
         let filterName = self.data.filterName;
-        authorization = wx.getStorageSync('authorization');
-        wx.showNavigationBarLoading();
-        if (self.data.pullDownState) {
-            self.getVoteList('refresh', 1, filterName);
-        }
+
+        self.setData({
+            currentPage: 1
+        })
+        self.getVotes(filterName);
     },
     onReachBottom: function() {
         let self = this;
@@ -70,7 +69,7 @@ Page({
             currentPage: pesoPgNo
         })
         if (self.data.currentPage <= self.data.totalPageNum) {
-            self.getVoteList('loadMore', self.data.currentPage, filterName);
+            self.getVotes(filterName);
         } else {
             self.setData({
                     currentPage: self.data.totalPageNum,
@@ -107,7 +106,6 @@ Page({
         })
     },
     onShareAppMessage: function(res) {
-        let self = this;
         let nickname = res.target.dataset.nickname;
         let voteId = res.target.dataset.voteid;
         let shareTitle = nickname ? nickname : '朋友';
@@ -135,56 +133,39 @@ Page({
             urls: finalImgs
         })
     },
-    getVoteList: function(type, pageNum, filterName) {
+    getVotes: function(filterName) {
         let self = this;
-        let totalVotes = self.data.votes;
-        let authorization = wx.getStorageSync('authorization');
-        let timer = setTimeout(() => {
-            wx.showLoading({
-                title: '加载中',
+
+        wx.showNavigationBarLoading();
+
+        if (self.data.currentPage == 1) {
+            self.setData({
+                votes: []
             })
-        }, 400);
-        self.setData({
-            pullDownState: false
-        });
+        }
+
         util.request({
             url: util.baseUrl + '/api/votes',
             method: 'GET',
             data: {
-                page: pageNum,
+                page: self.data.currentPage,
                 filter: filterName
             },
-            success: function(res) {
-                wx.hideLoading();
-                clearTimeout(timer);
+            success: function (res) {
+                wx.stopPullDownRefresh()
+                wx.hideNavigationBarLoading()
+
                 if (res.statusCode === 200) {
                     self.setData({
                         totalPageNum: res.data.meta.last_page,
-                        votes: res.data.data,
-                        pullDownState: true
+                        votes: self.data.votes.concat(res.data.data)
                     });
-                    if (type === "loadMore") {
-                        totalVotes = totalVotes.concat(res.data.data)
-                        self.setData({
-                            votes: totalVotes
-                        })
-                    } else if (type === "refresh") {
-                        wx.showToast({
-                            title: '刷新成功',
-                            icon: 'success',
-                            duration: 1200,
-                            mask: true
-                        });
-                        self.setData({
-                            currentPage: 1,
-                            bottomLineState: false
-                        })
-                        wx.stopPullDownRefresh()
-                        wx.hideNavigationBarLoading()
-                    }
                 }
             },
             fail: function() {
+                wx.stopPullDownRefresh()
+                wx.hideNavigationBarLoading()
+
                 wx.showToast({
                     title: '数据获取失败，请稍后再试',
                     icon: 'none',
@@ -255,7 +236,7 @@ Page({
                 currentPage: 1,
                 bottomLineState: false
             })
-            self.getVoteList('', 1, curName);
+            self.getVotes(curName);
         }
     },
     voteOP: function(e) {
