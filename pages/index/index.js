@@ -56,6 +56,7 @@ Page({
         let filterName = self.data.filterName;
 
         self.setData({
+            bottomLineState: false,
             currentPage: 1
         })
         self.getVotes(filterName);
