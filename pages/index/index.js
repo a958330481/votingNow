@@ -11,7 +11,8 @@ Page({
         filterName: 'all',
         delOpState: false,
         pullDownState: true,
-        voteState: true
+        voteState: true,
+        noVoteFlag: false
     },
     onLoad: function(option) {
         let self = this;
@@ -37,7 +38,7 @@ Page({
         let targetIndex = wx.getStorageSync('voteIndex');
         let targetResult = wx.getStorageSync('voteResult');
         let optionIndex = wx.getStorageSync('optionIndex') === "" ? -1 : wx.getStorageSync('optionIndex');
-        if (targetIndex && optionIndex >= 0) {
+        if (targetIndex >= 0 && optionIndex >= 0) {
             self.data.votes[targetIndex].data.voters_count++;
             self.data.votes[targetIndex].result = targetResult;
             self.data.votes[targetIndex].data.options[optionIndex].vote_count++;
@@ -152,7 +153,7 @@ Page({
                 page: self.data.currentPage,
                 filter: filterName
             },
-            success: function (res) {
+            success: function(res) {
                 wx.stopPullDownRefresh()
                 wx.hideNavigationBarLoading()
 
@@ -161,6 +162,12 @@ Page({
                         totalPageNum: res.data.meta.last_page,
                         votes: self.data.votes.concat(res.data.data)
                     });
+                    //判断votes长度是否为0
+                    if (self.data.votes.length === 0) {
+                        self.setData({
+                            noVoteFlag: true
+                        })
+                    }
                 }
             },
             fail: function() {

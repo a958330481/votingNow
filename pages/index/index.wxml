@@ -7,7 +7,7 @@
         <view class="tab {{filterName==='mine'?'active':''}}" data-src="mine" bindtap="getVoteListByType" hover-class="vote-item-data-active">我的</view>
     </view>
     <view class="votes-list">
-        <view class="no-vote-tip" wx:if="{{votes.length===0 && filterName==='mine'}}">
+        <view class="no-vote-tip" wx:if="{{noVoteFlag && filterName==='mine'}}">
             <view class="tips-icon tips-icon-res"></view>
             <button type="primary" hover-class="none" bindtap="targetToAdd">创建投票</button>
         </view>
