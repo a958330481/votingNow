@@ -1,3 +1,4 @@
+const config = require('../config.js') //引入配置文件
 const formatTime = date => {
     const year = date.getFullYear()
     const month = date.getMonth() + 1
@@ -18,9 +19,8 @@ const numberToFixed = n => {
     return n
 }
 
-const baseUrl = 'http://dev.minivote.cn'
-
-const app = getApp()
+const baseUrl = config.getBaseDevUrl; //获取接口URL
+const app = getApp();
 
 const request = (object) => {
     let token,
@@ -72,8 +72,8 @@ const request = (object) => {
 }
 
 module.exports = {
-    formatTime: formatTime,
-    baseUrl: baseUrl,
-    numberToFixed: numberToFixed,
+    formatTime,
+    baseUrl,
+    numberToFixed,
     request
 }

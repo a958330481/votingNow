@@ -1,3 +1,4 @@
+const config = require('./config.js');
 App({
     globalData: {
         userInfo: null,
@@ -7,7 +8,7 @@ App({
     },
     //启动
     onLaunch: function() {
-        this.getUserInfo();
+        this.getUserInfo()
     },
     //获取用户信息
     getUserInfo: function() {
@@ -38,7 +39,8 @@ App({
         })
     },
     userAuthCb: function() {
-        var that = this
+        let that = this;
+        let baseUrl = config.getBaseDevUrl;
         wx.showLoading({
             title: '加载中',
         })
@@ -53,7 +55,7 @@ App({
                             if (res.code) {
                                 //将用户基本信息回传给服务器，并获取assess_token
                                 wx.request({
-                                    url: 'http://dev.minivote.cn/auth/api/token',
+                                    url: baseUrl + '/auth/api/token',
                                     method: 'POST',
                                     data: {
                                         code: res.code,

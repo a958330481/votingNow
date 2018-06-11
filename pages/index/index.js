@@ -28,7 +28,6 @@ Page({
         } else {
             funType = self.data.filterName
         }
-
         self.getVotes(funType);
     },
     onShow: function() {
@@ -137,15 +136,12 @@ Page({
     },
     getVotes: function(filterName) {
         let self = this;
-
         wx.showNavigationBarLoading();
-
         if (self.data.currentPage == 1) {
             self.setData({
                 votes: []
             })
         }
-
         util.request({
             url: util.baseUrl + '/api/votes',
             method: 'GET',
@@ -156,7 +152,6 @@ Page({
             success: function(res) {
                 wx.stopPullDownRefresh()
                 wx.hideNavigationBarLoading()
-
                 if (res.statusCode === 200) {
                     self.setData({
                         totalPageNum: res.data.meta.last_page,
@@ -173,9 +168,8 @@ Page({
             fail: function() {
                 wx.stopPullDownRefresh()
                 wx.hideNavigationBarLoading()
-
                 wx.showToast({
-                    title: '数据获取失败，请稍后再试',
+                    title: '网络异常，请稍后再试',
                     icon: 'none',
                     duration: 1500,
                     mask: true
