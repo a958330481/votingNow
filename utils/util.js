@@ -18,7 +18,7 @@ const numberToFixed = n => {
     return n
 }
 
-const baseUrl = '**************'
+const baseUrl = 'http://dev.minivote.cn'
 
 const app = getApp()
 
