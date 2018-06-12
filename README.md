@@ -1,10 +1,14 @@
 # 阳光投票小程序
 
-投票小程序项目代码
+
+## 2018/6/12 上线一月有余，成功突破1千用户！:tada:
+
+![阳光投票用户](https://www.minivote.cn/storage/images/qrcode.jpeg)
+
 
 ## 2018/5/8 小程序已发布，欢迎大家使用
 
-![阳光投票二维码](https://www.minivote.cn/storage/images/miniprogram2.jpeg)
+![阳光投票二维码](https://www.minivote.cn/storage/images/analysis.jpeg)
 
 ### 2018/5/29 修改日志 :bulb:
 
