@@ -243,7 +243,8 @@ Page({
             self.setData({
                 filterName: curName,
                 currentPage: 1,
-                bottomLineState: false
+                bottomLineState: false,
+                votes: []
             })
             self.getVotes(curName);
         }
