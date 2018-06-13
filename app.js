@@ -40,7 +40,7 @@ App({
     },
     userAuthCb: function() {
         let that = this;
-        let baseUrl = config.getBaseDevUrl;
+        let baseUrl = config.getBaseUrl;
         wx.showLoading({
             title: '加载中',
         })

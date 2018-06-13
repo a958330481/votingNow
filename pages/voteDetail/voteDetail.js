@@ -168,9 +168,9 @@ Page({
     },
     onShareAppMessage: function(res) {
         let self = this;
-        let title = self.data.nickname == true ? self.data.nickname : '朋友';
+        let title = self.data.nickname ? self.data.nickname : '朋友';
         return {
-            title: title + '等你投一票！',
+            title: title + '邀你投一票！',
             path: '/pages/voteDetail/voteDetail?shareFrom=share&voteId=' + self.data.voteId,
             success: function(res) {
                 // 转发成功

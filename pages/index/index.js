@@ -12,7 +12,8 @@ Page({
         delOpState: false,
         pullDownState: true,
         voteState: true,
-        noVoteFlag: false
+        noVoteFlag: false,
+        pullDownRefreshState: false
     },
     onLoad: function(option) {
         let self = this;
@@ -56,6 +57,7 @@ Page({
         let filterName = self.data.filterName;
 
         self.setData({
+            pullDownRefreshState: true,
             bottomLineState: false,
             currentPage: 1
         })
@@ -115,7 +117,7 @@ Page({
             console.log(res)
         }
         return {
-            title: shareTitle + '等你投一票！',
+            title: shareTitle + '邀你投一票！',
             path: '/pages/voteDetail/voteDetail?shareFrom=share&nickname=' + nickname + '&voteId=' + voteId,
             success: function(res) {
                 // 转发成功
@@ -137,11 +139,6 @@ Page({
     getVotes: function(filterName) {
         let self = this;
         wx.showNavigationBarLoading();
-        if (self.data.currentPage == 1) {
-            self.setData({
-                votes: []
-            })
-        }
         util.request({
             url: util.baseUrl + '/api/votes',
             method: 'GET',
@@ -153,10 +150,20 @@ Page({
                 wx.stopPullDownRefresh()
                 wx.hideNavigationBarLoading()
                 if (res.statusCode === 200) {
-                    self.setData({
-                        totalPageNum: res.data.meta.last_page,
-                        votes: self.data.votes.concat(res.data.data)
-                    });
+                    if (self.data.pullDownRefreshState) {
+                        //下拉刷新
+                        self.setData({
+                            totalPageNum: res.data.meta.last_page,
+                            votes: res.data.data,
+                            pullDownRefreshState: false
+                        });
+                    } else {
+                        //上拉加载
+                        self.setData({
+                            totalPageNum: res.data.meta.last_page,
+                            votes: self.data.votes.concat(res.data.data)
+                        });
+                    }
                     //判断votes长度是否为0
                     if (self.data.votes.length === 0) {
                         self.setData({

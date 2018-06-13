@@ -19,7 +19,7 @@ const numberToFixed = n => {
     return n
 }
 
-const baseUrl = config.getBaseDevUrl; //获取接口URL
+const baseUrl = config.getBaseUrl; //获取接口URL
 const app = getApp();
 
 const request = (object) => {
