@@ -1,8 +1,8 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/voteDetail/voteDetail",
         "pages/comment/comment",
+        "pages/voteDetail/voteDetail",
         "pages/authorizetip/authorizetip",
         "pages/voterDetail/voterDetail",
         "pages/vote/vote"

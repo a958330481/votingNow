@@ -19,6 +19,8 @@ Page({
         voteImgs: [],
         voteImgPaths: [],
         saveBtnState: true,
+        startDate: '',
+        valiDate: '',
         voteTypes: [
             { name: 'F', value: '公开', checked: true },
             { name: 'T', value: '私密' }
@@ -73,7 +75,7 @@ Page({
             newVoteWords: e.detail.cursor,
             newVoteContent: e.detail.value
         })
-        if (self.data.newVoteWords === 20) {
+        if (self.data.newVoteWords === 40) {
             self.setData({
                 newVoteWordsState: true
             })
@@ -86,8 +88,11 @@ Page({
     onLoad: function() {
         let self = this;
         let authorization = wx.getStorageSync('authorization');
+        const startDate = new Date().toLocaleDateString().replace(/\//g, '-');
+        //const endDate = new Date().toLocaleDateString().replace(/\//g, '-');
         self.setData({
-            userAuthorization: authorization
+            userAuthorization: authorization,
+            startDate: startDate
         })
     },
     addNewVote: function() {
@@ -262,6 +267,15 @@ Page({
                     })
                 }
             }
+        })
+    },
+    //设置投票有效期
+    bindvaliDateChange: function(e) {
+        let self = this;
+        let val = e.detail.value;
+        console.log(val)
+        self.setData({
+            valiDate: val
         })
     },
     confirmDelItem: function(e) {

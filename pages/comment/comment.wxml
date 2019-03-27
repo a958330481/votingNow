@@ -1,91 +1,82 @@
 <!--comment.wxml-->
 <view class="vote-add" scroll-y="{{addNewVoteState}}">
-  <view class="vote-add-item clearfix">
-    <label class="label-for-input">投票标题</label>
-    <input class="bottom-line" type="text" placeholder="请输入投票标题,至少3个字" maxlength="140" bindinput="bindTitleInput"  confirm-type="done" value="{{newVoteTitle}}"/>
-  </view>
-  <view class="vote-add-item clearfix">
-    <label class="label-for-input">投票类型</label>
-    <radio-group class="vote-radio-group vote-add-item-data" bindchange="radioChange">
-      <label wx:for="{{voteTypes}}" wx:key="{{index}}">
+    <view class="vote-add-item clearfix">
+        <label class="label-for-input">投票标题</label>
+        <input class="bottom-line" type="text" placeholder="请输入投票标题,至少3个字" maxlength="140" bindinput="bindTitleInput" confirm-type="done" value="{{newVoteTitle}}" />
+    </view>
+    <view class="vote-add-item clearfix">
+        <label class="label-for-input">投票类型</label>
+        <radio-group class="vote-radio-group vote-add-item-data" bindchange="radioChange">
+            <label wx:for="{{voteTypes}}" wx:key="{{index}}">
         <radio class="vote-radio" value="{{item.name}}" checked="{{item.checked}}" 	color="#7087f4"/>{{item.value}}
       </label>
-    </radio-group>
-  </view>
-  <view class="vote-add-item clearfix">
-    <label>投票描述</label>
-    <textarea wx:if="{{!desTextareaState}}" class="fl vote-add-item-data" bindinput="bindDesTextAreaInput" maxlength="120" auto-height placeholder="补充描述（选填，不超过120字）" value="{{desTextareaData}}" />
-    <view class="fl peso-des-textarea" wx:elif="{{desTextareaState}}">
-      <text wx:if="desTextareaDataLen>0">{{desTextareaData}}</text>
-      <text wx:if="desTextareaDataLen===0">补充描述（选填，不超过120字）</text>
+        </radio-group>
     </view>
-    <view wx:if="{{desTextareaDataLen>0}}" class="fr vote-add-item-data des-textarea-tip"><text class="{{desTextareaDataLen===120?'color-warn':''}}">{{desTextareaDataLen}}/120</text></view>
-  </view>
-  <view class="vote-add-item vote-add-item-imgs clearfix">
-    <label>投票配图<text>(最多4张)</text></label>
-    <view class="vote-add-item-imgs-box">
-      <view wx:for="{{voteImgs}}" wx:key="{{index}}">          
-        <image wx:if="{{item}}" data-src="{{item}}" src="{{item}}" mode="aspectFill" bindtap="bindPreviewImage"></image>
-        <i class="fa fa-remove" data-path="{{voteImgPaths[index].path}}" data-index="{{index}}" bindtap = "delImage"></i>
-      </view>
-      <image hidden="{{voteImgs.length==4?true:false}}" src="../../images/uploadImg.png"  catchtap="uploadImg"></image>
+    <view class="vote-add-item clearfix">
+        <label>投票描述</label>
+        <textarea wx:if="{{!desTextareaState}}" class="fl vote-add-item-data" bindinput="bindDesTextAreaInput" maxlength="120" auto-height placeholder="补充描述（选填，不超过120字）" value="{{desTextareaData}}" />
+        <view class="fl peso-des-textarea" wx:elif="{{desTextareaState}}">
+            <text wx:if="desTextareaDataLen>0">{{desTextareaData}}</text>
+            <text wx:if="desTextareaDataLen===0">补充描述（选填，不超过120字）</text>
+        </view>
+        <view wx:if="{{desTextareaDataLen>0}}" class="fr vote-add-item-data des-textarea-tip"><text class="{{desTextareaDataLen===120?'color-warn':''}}">{{desTextareaDataLen}}/120</text></view>
     </view>
-  </view>
-  <view class="vote-add-item clearfix">
-    <label>设置选项</label>
-    <view class="vote-options fl vote-add-item-data">
-        <view class="vote-option-container" wx:if="{{newVotes.length>0}}">
-          <view wx:for="{{newVotes}}" wx:key="{{index}}" class="bottom-line" hover-class="vote-option-hover-class" data-index="{{index}}"  bindlongpress="confirmDelItem"> 
-            <view class="vote-option">
-              <i class="fa fa-minus-circle" data-index="{{index}}" bindtap="confirmDelItem"></i>
-              <text class="vote-option-content">{{item.title}}</text>
+    <view class="vote-add-item vote-add-item-imgs clearfix">
+        <label>投票配图<text>(最多4张)</text></label>
+        <view class="vote-add-item-imgs-box">
+            <view wx:for="{{voteImgs}}" wx:key="{{index}}">
+                <image wx:if="{{item}}" data-src="{{item}}" src="{{item}}" mode="aspectFill" bindtap="bindPreviewImage"></image>
+                <i class="fa fa-remove" data-path="{{voteImgPaths[index].path}}" data-index="{{index}}" bindtap="delImage"></i>
             </view>
-          </view>
-        </view>
-        <button wx:if="{{newVotes.length < 4}}" type="defalut" bindtap="addNewVote"><i class="fa fa-plus"></i>添加投票选项</button>
-        <view class="vote-item-tip">
-        <icon  type="info" size="16" color="#7087f4"/>
-        <view>
-          <text>选项最少两个，最多四个</text>        
-        </view>
+            <image hidden="{{voteImgs.length==4?true:false}}" src="../../images/uploadImg.png" catchtap="uploadImg"></image>
         </view>
     </view>
-  </view>
-  <view class="vote-add-item">
-    <button wx:if="{{saveBtnState===true}}" class="publish-btn" type="primary" bindtap="publishNewVote">发布</button>
-    <button wx:else class="publish-btn"  loading="true" type="primary">正在发布</button>
-  </view>
-  <!--弹窗 begin-->
-  <view class="vote-item-add-mask" catchtouchmove="true"  wx:if="{{addNewVoteState}}">
-    <view class="vote-item-add clearfix {{textareaFocusFlag ?'vote-item-add-active':''}}">
-      <textarea catchtouchmove="true" class="vote-add-item-data" auto-focus="{{addNewVoteState}}" bindfocus="bindTextAreaFocus" bindblur="bindTextAreablur"  bindinput="bindTextAreaInput"  auto-height maxlength="20" placeholder="请填写选项内容,内容不要超过20字" value="{{newVoteContent}}" />
-      <view class="clearfix">
-        <text class="{{newVoteWordsState?'color-warn':''}}">{{newVoteWords}}/20</text>
-      </view>
-      <button class="confirm-add-btn" type="primary" bindtap="confirmAddNewVote">确认添加</button>
-      <i class="fa fa-times-circle"  bindtap="closeMask"></i>
+    <view class="vote-add-item clearfix">
+        <label>设置选项</label>
+        <view class="vote-options fl vote-add-item-data">
+            <view class="vote-option-container" wx:if="{{newVotes.length>0}}">
+                <view wx:for="{{newVotes}}" wx:key="{{index}}" class="bottom-line" hover-class="vote-option-hover-class" data-index="{{index}}" bindlongpress="confirmDelItem">
+                    <view class="vote-option">
+                        <i class="fa fa-minus-circle" data-index="{{index}}" bindtap="confirmDelItem"></i>
+                        <text class="vote-option-content">{{item.title}}</text>
+                    </view>
+                </view>
+            </view>
+            <button wx:if="{{newVotes.length < 4}}" type="defalut" bindtap="addNewVote"><i class="fa fa-plus"></i>添加投票选项</button>
+            <view class="vote-item-tip">
+                <icon type="info" size="16" color="#7087f4" />
+                <view>
+                    <text>选项最少两个，最多四个</text>
+                </view>
+            </view>
+        </view>
     </view>
-  </view>
-  <!--弹窗 end-->
+    <!--
+    <view class="vote-add-item">
+        <label>截止日期<text>(选填)</text></label>
+        <picker mode="date" value="{{valiDate}}" start="{{startDate}}" end="2028-09-01" bindchange="bindvaliDateChange">
+            <view class="picker">
+                <text wx:if="{{valiDate}}">{{valiiDate}}</text>
+                <text wx:else>选择日期</text>
+            </view>
+        </picker>
+    </view>
+     -->
+    <view class="vote-add-item">
+        <button wx:if="{{saveBtnState===true}}" class="publish-btn" type="primary" bindtap="publishNewVote">发布</button>
+        <button wx:else class="publish-btn" loading="true" type="primary">正在发布</button>
+    </view>
+    <!--弹窗 begin-->
+    <view class="vote-item-add-mask" catchtouchmove="true" wx:if="{{addNewVoteState}}">
+        <view class="vote-item-add clearfix {{textareaFocusFlag ?'vote-item-add-active':''}}">
+            <textarea catchtouchmove="true" class="vote-add-item-data" auto-focus="{{addNewVoteState}}" bindfocus="bindTextAreaFocus" bindblur="bindTextAreablur" bindinput="bindTextAreaInput" auto-height maxlength="40" placeholder="请填写选项内容,内容不要超过40字" value="{{newVoteContent}}"
+            />
+            <view class="clearfix">
+                <text class="{{newVoteWordsState?'color-warn':''}}">{{newVoteWords}}/40</text>
+            </view>
+            <button class="confirm-add-btn" type="primary" bindtap="confirmAddNewVote">确认添加</button>
+            <i class="fa fa-times-circle" bindtap="closeMask"></i>
+        </view>
+    </view>
+    <!--弹窗 end-->
 </view>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-

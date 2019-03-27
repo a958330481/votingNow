@@ -3,7 +3,7 @@ var filter = {
     return value.toFixed(1)
   },
   delWithPath:function(path){
-    return 'https://www.minivote.cn'+path
+    return 'https://minivote.sun309.com'+path
   }
 }
 module.exports = {
