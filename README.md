@@ -1,17 +1,25 @@
 # 阳光投票小程序
 
+### 2019/03/27 修改日志
+
+1.因服务器到期，升级了服务器和域名；
+2.把投票选项的字数由20个，提升到了40；因为有用户反馈20字有点受限制；
+3.优化了一些体验，比如tab切换闪屏；
+4.增加了用户反馈入口；
+5.目前用户数4021
+
 ### 2018/6/15 修改日志
 
 1.添加用户反馈功能；
 
 ### 2018/6/12 上线一月有余，成功突破1千用户！:tada:
 
-![阳光投票二维码](https://www.minivote.cn/storage/images/analysis.jpeg)
+![阳光投票二维码](https://minivote.sun309.com/storage/images/analysis.jpeg)
 
 
 ### 2018/5/8 小程序正式发布上线
 
-![阳光投票二维码](https://www.minivote.cn/storage/images/qrcode.jpeg)
+![阳光投票二维码](https://minivote.sun309.com/storage/images/qrcode.jpeg)
 
 ### 2018/5/29 修改日志 :bulb:
 
