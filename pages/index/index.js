@@ -99,28 +99,36 @@ Page({
     targetToVoteDetail: function(e) {
         let voteId = e.currentTarget.dataset.src;
         let curIndex = e.currentTarget.dataset.index;
-        console.log(curIndex)
+        let nickname = e.currentTarget.dataset.nickname;
         wx.setStorageSync('voteIndex', curIndex)
         wx.navigateTo({
-            url: '/pages/voteDetail/voteDetail?shareFrom=index&nickname&voteId=' + voteId,
+            url: '/pages/voteDetail/voteDetail?shareFrom=index&nickname=' + nickname + '&voteId=' + voteId,
             success: function(res) {
                 console.log(res)
             }
         })
     },
     onShareAppMessage: function(res) {
+        let shareTitle = res.target.dataset.title;
         let nickname = res.target.dataset.nickname;
         let voteId = res.target.dataset.voteid;
-        let shareTitle = nickname ? nickname : '朋友';
-        if (res.from === 'button') {
-            // 来自页面内转发按钮
-            console.log(res)
+        let cover;
+        if (res.target.dataset.cover.includes('undefined')) {
+            cover = '../../images/cover.png'
+        } else {
+            cover = res.target.dataset.cover
         }
         return {
-            title: shareTitle + '邀你投一票！',
+            title: shareTitle,
             path: '/pages/voteDetail/voteDetail?shareFrom=share&nickname=' + nickname + '&voteId=' + voteId,
+            imageUrl: cover,
             success: function(res) {
-                // 转发成功
+                wx.showToast({
+                    title: '分享成功',
+                    icon: 'success',
+                    duration: 1500,
+                    mask: true
+                })
             }
         }
     },

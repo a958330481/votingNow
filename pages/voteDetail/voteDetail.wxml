@@ -30,7 +30,7 @@
         <view class="view-option-box" wx:if="{{voteResult.length>0}}">
             <view class="view-option-box-title">投票选项</view>
             <view class="vote-option vote-option-voted" data-index="{{index}}" data-id="{{item.id}}" wx:for="{{voteResult}}" wx:key="{{index}}">
-                <text>{{item.title}}</text>
+                <text class="vote-option-con">{{item.title}}</text>
                 <text class="vote-option-percent">{{item.vote_count}}票</text>
                 <view class="vote-progress-state" style="width:{{filter.numberToFix(item.vote_count/voterCount*100)}}%;background-color:{{votedColor[index]}};"></view>
             </view>

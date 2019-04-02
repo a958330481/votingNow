@@ -102,17 +102,23 @@ page {
     top: 0;
     left: 0;
     display: inline-block;
-    height: 72rpx;
-    opacity: .5;
+    height: 100%;
+    opacity: .6;
 }
 
 .vote-item-data-percent {
+    display: table;
     position: absolute;
-    right: 12rpx;
+    top: 0;
+    right: 28rpx;
+    bottom: 0;
+    margin: auto;
+    vertical-align: center;
     color: #7087f4;
 }
 
 .vote-item-data-voted {
+    padding-right: 100rpx;
     padding-left: 28rpx;
     text-align: left;
     color: #515151;

@@ -71,8 +71,9 @@
                 </view>
             </view>
             <view class="vote-item-ft top-line">
-                <i class="fa fa-align-left" bindtap="targetToVoteDetail" data-index="{{voteIndex}}" data-src="{{vote.data.id}}"><text> {{vote.data.voters_count}}</text></i>
-                <button open-type="share" plain="true" data-voteid="{{vote.data.id}}" data-nickname="{{vote.data.user.nick_name}}" bindtap="onShareAppMessage"><i class="fa fa-share-square-o"></i></button>
+                <i class="fa fa-align-left" bindtap="targetToVoteDetail" data-nickname="{{vote.data.user.nick_name}}" data-index="{{voteIndex}}" data-src="{{vote.data.id}}"><text> {{vote.data.voters_count}}</text></i>
+                <button open-type="share" plain="true" data-voteid="{{vote.data.id}}" data-cover="{{filter.delWithPath(vote.data.images[0].path)}}" data-title="{{vote.data.title}}" data-nickname="{{vote.data.user.nick_name}}" bindtap="onShareAppMessage"><i
+                        class="fa fa-share-square-o"></i></button>
             </view>
         </view>
         <!--list end-->

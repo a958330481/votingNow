@@ -40,17 +40,19 @@ page {
 }
 
 .vote-option-percent {
-    display: inline-block;
+    display: table;
     position: absolute;
+    top: 0;
     right: 28rpx;
+    bottom: 0;
+    margin: auto;
     color: #7087f4;
 }
 
 .vote-option {
     position: relative;
-    height: 100rpx;
     box-sizing: border-box;
-    line-height: 100rpx;
+    padding: 28rpx;
     font-size: 32rpx;
     text-align: center;
     color: #7087f4;
@@ -62,6 +64,9 @@ page {
 }
 
 .vote-option-voted {
+    top: 0;
+    left: 0;
+    height: 100%;
     padding-left: 28rpx;
     font-size: 28rpx;
     text-align: left;
@@ -72,8 +77,12 @@ page {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100rpx;
-    opacity: .5;
+    height: 100%;
+    opacity: .6;
+}
+
+.vote-option-con {
+    display: inline-block;
 }
 
 .vote-option-hover {

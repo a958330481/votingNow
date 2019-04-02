@@ -168,12 +168,19 @@ Page({
     },
     onShareAppMessage: function(res) {
         let self = this;
-        let title = self.data.nickname ? self.data.nickname : '朋友';
+        let title = self.data.voterTitle;
+        let cover = self.data.voteImgs[0] ? self.data.voteImgs[0] : '../../images/cover.png'
         return {
-            title: title + '邀你投一票！',
+            title: title,
             path: '/pages/voteDetail/voteDetail?shareFrom=share&voteId=' + self.data.voteId,
+            imageUrl: cover,
             success: function(res) {
-                // 转发成功
+                wx.showToast({
+                    title: '分享成功',
+                    icon: 'success',
+                    duration: 1500,
+                    mask: true
+                })
             },
             fail: function(res) {
                 // 转发失败
