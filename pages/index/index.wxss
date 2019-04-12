@@ -241,6 +241,7 @@ page {
     color: #707070;
     border: 0 !important;
     border-radius: 0;
+    background-color: #f4f4f4;
 }
 
 .feedback-btn button::after {

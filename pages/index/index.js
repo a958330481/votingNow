@@ -25,11 +25,12 @@ Page({
                 self.setData({
                     filterName: funType
                 })
+                self.getVotes(funType);
             }
         } else {
             funType = self.data.filterName
+            self.getVotes(funType);
         }
-        self.getVotes(funType);
     },
     onShow: function() {
         let self = this;
@@ -75,16 +76,9 @@ Page({
             self.getVotes(filterName);
         } else {
             self.setData({
-                    currentPage: self.data.totalPageNum,
-                    bottomLineState: true
-                })
-                /*
-                wx.showToast({
-                    title: '全部数据已加载，已无更多内容',
-                    icon: 'none',
-                    duration: 1500,
-                    mask: true
-                })*/
+                currentPage: self.data.totalPageNum,
+                bottomLineState: true
+            });
             return
         }
     },
