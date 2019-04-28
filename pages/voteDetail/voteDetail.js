@@ -159,8 +159,8 @@ Page({
         })
     },
     targetToIndex: function() {
-        wx.navigateTo({
-            url: '/pages/index/index',
+        wx.reLaunch({
+            url: '/pages/index/index?funType=all',
             success: function(res) {
                 console.log(res)
             }

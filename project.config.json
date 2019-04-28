@@ -13,6 +13,8 @@
 	"appid": "wxc1158dce7d572899",
 	"projectname": "sunshineVote",
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

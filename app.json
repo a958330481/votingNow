@@ -1,16 +1,17 @@
 {
-    "pages": [
-        "pages/index/index",
-        "pages/comment/comment",
-        "pages/voteDetail/voteDetail",
-        "pages/authorizetip/authorizetip",
-        "pages/voterDetail/voterDetail",
-        "pages/vote/vote"
-    ],
-    "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#ffffff",
-        "navigationBarTitleText": "WeChat",
-        "navigationBarTextStyle": "black"
-    }
+  "pages": [
+    "pages/index/index",
+    "pages/comment/comment",
+    "pages/voteDetail/voteDetail",
+    "pages/authorizetip/authorizetip",
+    "pages/voterDetail/voterDetail",
+    "pages/vote/vote"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
 }
