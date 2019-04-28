@@ -108,7 +108,6 @@ Page({
                         voterCount: self.data.voterCount
                     });
                     //投票结果缓存到本地
-                    console.log(res.data.data)
                     wx.setStorage({
                         key: 'optionIndex',
                         data: optionIndex
